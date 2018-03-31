@@ -1,0 +1,23 @@
+{
+  "name": "edam-template",
+  "version": "0.0.1",
+  "dependencies": {
+    "edam-plugin-dulcet-prompt": "0.0.10-0"
+  },
+  "main": "edam.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": "test/main.test\\.js$",
+    "testPathIgnorePatterns": [
+      "template/test/main.test\\.js$"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "co": "^4.6.0",
+    "edam": "0.0.10",
+    "jest": "^22.4.3"
+  }
+}
