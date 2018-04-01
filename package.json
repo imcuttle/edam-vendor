@@ -2,7 +2,6 @@
   "name": "edam-template",
   "version": "0.0.1",
   "dependencies": {
-    "edam-plugin-dulcet-prompt": "0.0.10-0"
   },
   "main": "edam.js",
   "scripts": {
