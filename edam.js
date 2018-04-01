@@ -23,7 +23,7 @@ module.exports = {
     {
       name: 'ci',
       type: 'confirm',
-      when: 'test',
+      when: ({ test }) => test,
       message: 'Do you want to use ci for test (travis)?',
       default: true
     }
