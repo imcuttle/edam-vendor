@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-module",
+  "version": "0.0.1",
+  "dependencies": {
+    "co": "^4.6.0"
+  },
+  "main": "edam.js",
+  "description": "Nodejs module template through edam",
+  "author": "imcuttle",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "edam-template"
+  ],
+  "devDependencies": {
+    "edam": "0.0.17",
+    "jest": "^22.4.3"
+  },
+  "repository": "imcuttle/nodejs-module",
+  "jest": {
+    "testRegex": "(/test/.*)"
+  }
+}
