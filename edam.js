@@ -43,11 +43,6 @@ module.exports = {
       default: true
     }
   ],
-  move: {
-    'package.json.js': 'package.json',
-    'tests/**': 'test',
-    'babelrc.json': '.babelrc'
-  },
   copy: {},
   hooks: {
     post: [
@@ -87,6 +82,21 @@ module.exports = {
         yield install(pkgs, { cwd: output, dev: true })
       })
     ]
+  },
+  move: ({ test, babel, ci, language }) => {
+    if (language === 'typescript') {
+      return {
+        'index.js': 'index.ts',
+        'package.json.js': 'package.json',
+        'tests/**': 'test',
+        'babelrc.json': '.babelrc'
+      }
+    }
+    return {
+      'package.json.js': 'package.json',
+      'tests/**': 'test',
+      'babelrc.json': '.babelrc'
+    }
   },
   ignore: ({ test, babel, ci, language }) => {
     const ignores = []

@@ -23,7 +23,7 @@ describe('main', function() {
         expect.arrayContaining([
           'package.json',
           '.travis.yml',
-          'index.js',
+          'index.ts',
           'test/main.test.js',
           '.babelrc',
           'tsconfig.json'
@@ -45,7 +45,7 @@ describe('main', function() {
       expect(Object.keys(fp.tree)).toEqual(
         expect.arrayContaining([
           'package.json',
-          'index.js',
+          'index.ts',
           'test/main.test.js',
           'tsconfig.json'
         ])
@@ -68,7 +68,7 @@ describe('main', function() {
       expect(Object.keys(fp.tree)).toEqual(
         expect.arrayContaining([
           'package.json',
-          'index.js',
+          'index.ts',
           '.babelrc',
           'tsconfig.json'
         ])
