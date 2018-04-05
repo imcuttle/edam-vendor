@@ -1,3 +1,5 @@
+const co = require('co')
+
 module.exports = {
   // root: './template' // by default
 
@@ -38,7 +40,23 @@ module.exports = {
     }
   },
 
-  remove: ({ test, ci } = {}) => {
+  hooks: {
+    post: co.wrap(function*(output) {
+      const {
+        _: { install },
+        test
+      } = yield this.variables.get()
+
+      if (test) {
+        let pkgs = [
+          'edam', 'jest', 'co', '@types/jest'
+        ]
+        yield install(pkgs, { cwd: output, dev: true })
+      }
+    })
+  },
+
+  ignore: ({ test, ci } = {}) => {
     if (!test) {
       return ['test/**', '.travis.yml']
     }
@@ -48,7 +66,7 @@ module.exports = {
     return []
   },
   usefulHook: {
-    installDependencies: true,
-    installDevDependencies: true
+    installDependencies: false,
+    installDevDependencies: false
   }
 }
