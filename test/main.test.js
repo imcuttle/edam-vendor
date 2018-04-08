@@ -62,6 +62,7 @@ describe('main', function() {
         test: false,
         ci: false,
         babel: true,
+        name: 'abv',
         language: 'typescript'
       })
 
@@ -85,12 +86,20 @@ describe('main', function() {
       test: false,
       ci: false,
       babel: true,
+      name: 'abv',
       language: 'typescript'
     })
 
     const output = join(__dirname, 'output')
-    yield fp.writeToFile(output, { clean: true, overwrite: true })
+    yield fp.writeToFile(output, { clean: false, overwrite: true })
     const { devDependencies } = JSON.parse(fs.readFileSync(join(output, 'package.json')).toString())
+
+    expect(
+      fs.readFileSync(join(output, 'README.md')).toString()
+    ).toEqual(
+      '# Abv\n'
+    )
+
     expect(Object.keys(devDependencies)).toEqual(
       expect.arrayContaining([
         'typescript',

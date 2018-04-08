@@ -20,7 +20,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
-    "edam": "0.0.17",
+    "edam": "0.0.18",
     "jest": "^22.4.3",
     "typescript": "^2.8.1"
   },
