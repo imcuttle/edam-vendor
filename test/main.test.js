@@ -97,7 +97,7 @@ describe('main', function() {
     expect(
       fs.readFileSync(join(output, 'README.md')).toString()
     ).toEqual(
-      '# Abv\n'
+      expect.stringContaining('# Abv\n')
     )
 
     expect(Object.keys(devDependencies)).toEqual(
