@@ -18,6 +18,7 @@ module.exports = function({
       test: 'jest'
     },
     keywords: [name],
+    license: 'MIT',
     repository: _.git.name + '/' + name
   }
 
