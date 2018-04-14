@@ -7,7 +7,7 @@ module.exports = {
       name: 'name',
       type: 'input',
       message: "What's your package's name?",
-      default: 'your package name'
+      default: '${baseName}'
     },
     {
       name: 'description',
