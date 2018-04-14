@@ -6,6 +6,7 @@ module.exports = {
     {
       name: 'name',
       type: 'input',
+      deniesStore: true,
       message: "What's your package's name?",
       default: '${baseName}'
     },
