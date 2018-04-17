@@ -31,7 +31,8 @@ module.exports = {
     }
   ],
   move: {
-    'package.json.js': 'package.json'
+    'package.json.js': 'package.json',
+    'gitignore': '.gitignore'
   },
   variables: {
     DATE_TIME: function() {
