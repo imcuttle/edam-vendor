@@ -10,7 +10,7 @@ module.exports = function({
 } = {}) {
   const pkg = {
     name,
-    version: '0.0.1',
+    version: '1.0.0',
     main: 'index.js',
     description: description,
     author: _.git.name,
