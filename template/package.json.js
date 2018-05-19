@@ -3,7 +3,7 @@
 module.exports = function({ _, test, description, name } = {}) {
   const pkg = {
     name,
-    version: '0.0.1',
+    version: '1.0.0',
     dependencies: {},
     main: 'edam.js',
     description: description,
