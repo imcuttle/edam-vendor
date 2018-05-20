@@ -3,6 +3,8 @@
  * @author imcuttle
  * @date 2018/4/4
  */
+process.env.DEBUG = 'edam:*'
+
 const { mockPrompts } = require('edam')
 const { join } = require('path')
 const fs = require('fs')
@@ -97,7 +99,7 @@ describe('main', function() {
     expect(
       fs.readFileSync(join(output, 'README.md')).toString()
     ).toEqual(
-      expect.stringContaining('# Abv\n')
+      expect.stringContaining('# abv\n')
     )
 
     expect(Object.keys(devDependencies)).toEqual(
