@@ -89,20 +89,18 @@ module.exports = {
       return {
         'index.js': 'index.ts',
         'package.json.js': 'package.json',
-        'tests/**': 'test',
         'babelrc.json': '.babelrc'
       }
     }
     return {
       'package.json.js': 'package.json',
-      'tests/**': 'test',
       'babelrc.json': '.babelrc'
     }
   },
   ignore: ({ test, babel, ci, language }) => {
     const ignores = []
     if (!test) {
-      ignores.push('tests/**')
+      ignores.push('__tests__/**')
     }
     if (!ci) {
       ignores.push('.travis.yml')

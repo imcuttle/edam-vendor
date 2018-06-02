@@ -15,7 +15,8 @@ module.exports = function({
     description: description,
     author: _.git.name,
     scripts: {
-      test: 'jest'
+      test: 'jest',
+      prepublishOnly: 'npm test'
     },
     keywords: [name],
     license: 'MIT',
@@ -38,6 +39,7 @@ module.exports = function({
     pkg.jest = pkg.jest || {}
     pkg.jest.transform = pkg.jest.transform || {}
     pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
+    pkg.jest.testMatch = ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}']
   }
 
   return pkg
