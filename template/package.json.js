@@ -26,20 +26,21 @@ module.exports = function({
   if (!test) {
     delete pkg.scripts.test
   }
-
-  if (language === 'typescript') {
-    pkg.jest = {
-      transform: {
-        '^.+\\.tsx?$': 'ts-jest'
-      },
-      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+  else {
+    if (language === 'typescript') {
+      pkg.jest = {
+        transform: {
+          '^.+\\.tsx?$': 'ts-jest'
+        },
+        moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+      }
     }
-  }
-  if (babel) {
     pkg.jest = pkg.jest || {}
-    pkg.jest.transform = pkg.jest.transform || {}
-    pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
     pkg.jest.testMatch = ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}']
+    if (babel) {
+      pkg.jest.transform = pkg.jest.transform || {}
+      pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
+    }
   }
 
   return pkg
