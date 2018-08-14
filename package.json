@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
-    "edam": "0.0.17",
+    "edam": "^2.2.1",
     "jest": "^22.4.3"
   }
 }

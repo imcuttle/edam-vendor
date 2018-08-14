@@ -34,10 +34,10 @@ module.exports = {
     'package.json.js': 'package.json',
     'gitignore': '.gitignore'
   },
-  variables: {
-    DATE_TIME: function() {
-      const date = new Date()
-      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+  variables: () => {
+    const date = new Date()
+    return {
+      DATE_TIME: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
     }
   },
 
