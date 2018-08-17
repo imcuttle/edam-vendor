@@ -1,13 +1,6 @@
 // @loader module?indent=2
 
-module.exports = function({
-  _,
-  test,
-  description,
-  babel,
-  language,
-  name
-} = {}) {
+module.exports = function({ _, test, description, babel, language, name } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
@@ -25,8 +18,7 @@ module.exports = function({
 
   if (!test) {
     delete pkg.scripts.test
-  }
-  else {
+  } else {
     if (language === 'typescript') {
       pkg.jest = {
         transform: {
@@ -38,6 +30,9 @@ module.exports = function({
     pkg.jest = pkg.jest || {}
     pkg.jest.testMatch = ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}']
     if (babel) {
+      pkg.scripts.build = 'rimraf lib && babel src/ -Dd lib'
+      pkg.scripts.dev = 'npm run build -- -w'
+
       pkg.jest.transform = pkg.jest.transform || {}
       pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
     }

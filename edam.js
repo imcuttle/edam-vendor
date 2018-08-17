@@ -58,6 +58,7 @@ module.exports = {
         let pkgs = []
         if (babel) {
           pkgs = pkgs.concat([
+            'rimraf',
             'babel-cli',
             'babel-preset-env',
             'babel-plugin-add-module-exports',
