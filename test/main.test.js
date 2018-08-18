@@ -41,9 +41,11 @@ describe('main', function() {
         test: true,
         ci: true,
         babel: false,
+        documentation: true,
         language: 'typescript'
       })
 
+      console.error(fp.tree['package.json'])
       expect(Object.keys(fp.tree)).toEqual(
         expect.arrayContaining([
           'package.json',

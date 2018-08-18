@@ -1,6 +1,6 @@
 // @loader module?indent=2
 
-module.exports = function({ _, test, description, babel, language, name } = {}) {
+module.exports = function({ _, test, documentation, description, babel, language, name } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
@@ -35,6 +35,10 @@ module.exports = function({ _, test, description, babel, language, name } = {}) 
 
       pkg.jest.transform = pkg.jest.transform || {}
       pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
+    }
+    if (documentation) {
+      pkg.scripts.doc = 'documentation --github --markdown-toc=false readme index.js -a public -s "API"'
+      pkg.scripts.prepublishOnly = 'npm test && npm run doc'
     }
   }
 

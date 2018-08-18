@@ -23,7 +23,12 @@ module.exports = {
       message: 'Which language do you wanted?',
       default: 'javascript'
     },
-
+    {
+      name: 'documentation',
+      type: 'confirm',
+      message: 'Do you use documentation(jsdoc generator)?',
+      default: false
+    },
     {
       name: 'babel',
       type: 'confirm',
@@ -52,6 +57,7 @@ module.exports = {
           _: { install },
           test,
           babel,
+          documentation,
           language
         } = yield this.variables.get()
 
@@ -80,6 +86,9 @@ module.exports = {
 
         if (language === 'typescript') {
           pkgs.push('typescript')
+        }
+        if (documentation) {
+          pkgs.push('documentation')
         }
 
         yield install(pkgs, { cwd: output, dev: true })
@@ -119,7 +128,7 @@ module.exports = {
   loaders: {},
   mappers: [],
   usefulHook: {
-    gitInit: true,
+    gitInit: true
     // installDependencies: true,
     // installDevDependencies: true
   }
