@@ -30,6 +30,12 @@ module.exports = {
       default: false
     },
     {
+      name: 'changelog',
+      type: 'confirm',
+      message: 'Do you use changelog auto-generator(commit-lint)?',
+      default: true
+    },
+    {
       name: 'babel',
       type: 'confirm',
       message: 'Do you use babel?',
@@ -58,10 +64,11 @@ module.exports = {
           test,
           babel,
           documentation,
+          changelog,
           language
         } = yield this.variables.get()
 
-        let pkgs = []
+        let pkgs = ['pretty-quick', 'husky']
         if (babel) {
           pkgs = pkgs.concat([
             'rimraf',
@@ -89,6 +96,11 @@ module.exports = {
         }
         if (documentation) {
           pkgs.push('documentation')
+        }
+        if (changelog) {
+          pkgs.push('conventional-changelog-cli')
+          pkgs.push('@commitlint/cli')
+          pkgs.push('@commitlint/config-conventional')
         }
 
         yield install(pkgs, { cwd: output, dev: true })

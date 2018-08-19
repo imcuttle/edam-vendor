@@ -1,6 +1,6 @@
 // @loader module?indent=2
 
-module.exports = function({ _, test, documentation, description, babel, language, name } = {}) {
+module.exports = function({ _, test, changelog, documentation, description, babel, language, name } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
@@ -9,7 +9,8 @@ module.exports = function({ _, test, documentation, description, babel, language
     author: _.git.name,
     scripts: {
       test: 'jest',
-      prepublishOnly: 'npm test'
+      prepublishOnly: 'npm test',
+      precommit: 'pretty-quick --staged'
     },
     keywords: [name],
     license: 'MIT',
@@ -39,6 +40,15 @@ module.exports = function({ _, test, documentation, description, babel, language
     if (documentation) {
       pkg.scripts.doc = 'documentation --github --markdown-toc=false readme index.js -a public -s "API"'
       pkg.scripts.prepublishOnly = 'npm test && npm run doc'
+    }
+  }
+
+  if (changelog) {
+    pkg.scripts.version = 'npm run changelog'
+    pkg.scripts.commitmsg = 'commitlint -e $GIT_PARAMS'
+    pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
+    pkg.commitlint = {
+      extends: ['@commitlint/config-conventional']
     }
   }
 

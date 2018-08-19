@@ -10,3 +10,8 @@
 {{#if documentation}}
 ## API
 {{/if}}
+
+
+## License
+
+MIT
