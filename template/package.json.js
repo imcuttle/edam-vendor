@@ -38,7 +38,7 @@ module.exports = function({ _, test, changelog, documentation, description, babe
       pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
     }
     if (documentation) {
-      pkg.scripts.doc = 'documentation --github --markdown-toc=false readme index.js -a public -s "API"'
+      pkg.scripts.doc = 'documentation --github --markdown-toc=false readme index.js -a public -s "API" && git commit -am "chore: update readme"'
       pkg.scripts.prepublishOnly = 'npm test && npm run doc'
     }
   }
