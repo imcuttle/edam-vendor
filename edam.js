@@ -1,5 +1,8 @@
 const co = require('co')
+const nps = require('path')
 const prettierLoader = require('edam-prettier-loader')
+
+const PRETTIER_CONFIG_PATH = nps.join(__dirname, 'template/.prettierrc.js')
 
 module.exports = {
   // root: './template' // by default
@@ -144,19 +147,34 @@ module.exports = {
   mappers: [
     {
       test: '**/*.jsx?',
-      loader: ['hbs', [prettierLoader, { parser: 'babylon' }]]
+      loader: [
+        'hbs',
+        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'babylon' }]
+      ]
     },
     {
       test: '**/*.json',
-      loader: ['hbs', [prettierLoader, { parser: 'json' }]]
+      loader: [
+        'hbs',
+        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'json' }]
+      ]
     },
     {
       test: '**/*.md',
-      loader: ['hbs', [prettierLoader, { parser: 'markdown' }]]
+      loader: [
+        'hbs',
+        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'markdown' }]
+      ]
     },
     {
       test: '**/*.tsx?',
-      loader: ['hbs', [prettierLoader, { parser: 'typescript' }]]
+      loader: [
+        'hbs',
+        [
+          prettierLoader,
+          { filePath: PRETTIER_CONFIG_PATH, parser: 'typescript' }
+        ]
+      ]
     }
   ],
   usefulHook: {
