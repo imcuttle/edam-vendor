@@ -68,7 +68,7 @@ module.exports = {
           language
         } = yield this.variables.get()
 
-        let pkgs = ['pretty-quick', 'husky']
+        let pkgs = ['prettier', 'pretty-quick', 'husky']
         if (babel) {
           pkgs = pkgs.concat([
             'rimraf',
