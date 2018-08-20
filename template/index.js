@@ -1,5 +1,5 @@
 /**
  * @file index
- * @author <%=_.git.name%>
+ * @author {{_.git.name}}
  * @description
  */

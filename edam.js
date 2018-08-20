@@ -1,4 +1,5 @@
 const co = require('co')
+const prettierLoader = require('edam-prettier-loader')
 
 module.exports = {
   // root: './template' // by default
@@ -137,8 +138,27 @@ module.exports = {
     return ignores
   },
   variables: {},
-  loaders: {},
-  mappers: [],
+  loaders: {
+    prettier: prettierLoader
+  },
+  mappers: [
+    {
+      test: '**/*.jsx?',
+      loader: ['hbs', [prettierLoader, { parser: 'babylon' }]]
+    },
+    {
+      test: '**/*.json',
+      loader: ['hbs', [prettierLoader, { parser: 'json' }]]
+    },
+    {
+      test: '**/*.md',
+      loader: ['hbs', [prettierLoader, { parser: 'markdown' }]]
+    },
+    {
+      test: '**/*.tsx?',
+      loader: ['hbs', [prettierLoader, { parser: 'typescript' }]]
+    }
+  ],
   usefulHook: {
     gitInit: true
     // installDependencies: true,
