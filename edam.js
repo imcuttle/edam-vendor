@@ -146,36 +146,37 @@ module.exports = {
   },
   mappers: [
     {
-      test: '**/*.jsx?',
+      // test: /.+?\..+?$/,
+      test: '**/*.{md,json,jsx?,tsx?}',
       loader: [
         'hbs',
-        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'babylon' }]
+        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH }]
       ]
     },
-    {
-      test: '**/*.json',
-      loader: [
-        'hbs',
-        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'json' }]
-      ]
-    },
-    {
-      test: '**/*.md',
-      loader: [
-        'hbs',
-        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'markdown' }]
-      ]
-    },
-    {
-      test: '**/*.tsx?',
-      loader: [
-        'hbs',
-        [
-          prettierLoader,
-          { filePath: PRETTIER_CONFIG_PATH, parser: 'typescript' }
-        ]
-      ]
-    }
+    // {
+    //   test: '**/*.json',
+    //   loader: [
+    //     'hbs',
+    //     [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'json' }]
+    //   ]
+    // },
+    // {
+    //   test: '**/*.md',
+    //   loader: [
+    //     'hbs',
+    //     [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'markdown' }]
+    //   ]
+    // },
+    // {
+    //   test: '**/*.tsx?',
+    //   loader: [
+    //     'hbs',
+    //     [
+    //       prettierLoader,
+    //       { filePath: PRETTIER_CONFIG_PATH, parser: 'typescript' }
+    //     ]
+    //   ]
+    // }
   ],
   usefulHook: {
     gitInit: true
