@@ -1,7 +1,7 @@
 /**
  * @file main
- * @author <%=_.git.name%>
- * @date <%=DATE_TIME%>
+ * @author {{{_.git.name}}}
+ * @date {{{DATE_TIME}}}
  */
 const { mockPrompts } = require('edam')
 const { join } = require('path')
