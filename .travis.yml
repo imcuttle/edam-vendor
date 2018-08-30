@@ -15,7 +15,7 @@ install:
   - npm install
 
 before_script:
-  - npm install codecov --no-save
+  - npm install codecov
 script:
   - npm test -- --coverage
 after_script:

@@ -1,5 +1,6 @@
 const co = require('co')
 const nps = require('path')
+const execa = require('execa')
 const prettierLoader = require('edam-prettier-loader')
 
 const PRETTIER_CONFIG_PATH = nps.join(__dirname, 'template/.prettierrc.js')
@@ -57,6 +58,12 @@ module.exports = {
       when: ({ test }) => test,
       message: 'Do you want to use ci (travis)?',
       default: true
+    },
+    {
+      name: 'lerna',
+      type: 'confirm',
+      message: 'Do you want to use lerna (multi-packages)?',
+      default: false
     }
   ],
   copy: {},
@@ -69,10 +76,14 @@ module.exports = {
           babel,
           documentation,
           changelog,
+          lerna,
           language
         } = yield this.variables.get()
 
         let pkgs = ['prettier', 'pretty-quick', 'husky']
+        if (lerna) {
+          pkgs.push('lerna')
+        }
         if (babel) {
           pkgs = pkgs.concat([
             'rimraf',
@@ -108,6 +119,10 @@ module.exports = {
         }
 
         yield install(pkgs, { cwd: output, dev: true })
+
+        if (lerna) {
+          execa.shellSync('$(npm bin)/lerna init', { cwd: output })
+        }
       })
     ]
   },

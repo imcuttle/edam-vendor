@@ -1,6 +1,6 @@
 // @loader module?indent=2
 
-module.exports = function({ _, test, changelog, documentation, description, babel, language, name } = {}) {
+module.exports = function({ _, test, lerna, changelog, documentation, description, babel, language, name } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
@@ -12,9 +12,20 @@ module.exports = function({ _, test, changelog, documentation, description, babe
       prepublishOnly: 'npm test',
       precommit: 'pretty-quick --staged'
     },
-    keywords: [name],
+    engines: {
+      node: '>=6'
+    },
+    keywords: [_.git.name, name],
     license: 'MIT',
     repository: _.git.name + '/' + name
+  }
+
+  if (lerna) {
+    Object.assign(pkg.scripts, {
+      bootstrap: 'lerna bootstrap',
+      prerelease: 'npm test',
+      release: "lerna publish --conventional-commits -m 'chore(release): publish'"
+    })
   }
 
   if (!test) {
@@ -23,7 +34,8 @@ module.exports = function({ _, test, changelog, documentation, description, babe
     if (language === 'typescript') {
       pkg.jest = {
         transform: {
-          '^.+\\.tsx?$': 'ts-jest'
+          '^.+\\.tsx?$': 'ts-jest',
+          '^.+\\.jsx?$': 'babel-jest'
         },
         moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
       }
@@ -38,7 +50,8 @@ module.exports = function({ _, test, changelog, documentation, description, babe
       pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
     }
     if (documentation) {
-      pkg.scripts.doc = 'documentation --github --markdown-toc=false readme index.js -a public -s "API" && git commit -am "chore: update readme"'
+      pkg.scripts.doc =
+        'documentation --github --markdown-toc=false readme index.js -a public -s "API" && git commit -am "chore: update readme"'
       pkg.scripts.prepublishOnly = 'npm test && npm run doc'
     }
   }

@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "co": "^4.6.0",
-    "edam-prettier-loader": "^2.3.5"
+    "edam-prettier-loader": "^2.3.5",
+    "execa": "^1.0.0"
   },
   "main": "edam.js",
   "description": "Nodejs module template through edam",

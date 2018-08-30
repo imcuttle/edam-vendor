@@ -84,44 +84,70 @@ describe('main', function() {
     })
   )
 
-  it('should post', co.wrap(function *() {
-    jest.setTimeout(60000)
-    const fp = yield mockPrompts(join(__dirname, '../'), {
-      test: false,
-      ci: false,
-      babel: true,
-      name: 'abv',
-      language: 'typescript'
+  it(
+    'should post',
+    co.wrap(function*() {
+      jest.setTimeout(60000)
+      const fp = yield mockPrompts(join(__dirname, '../'), {
+        test: false,
+        ci: true,
+        babel: true,
+        name: 'abv',
+        language: 'typescript',
+        lerna: false
+      })
+
+      const output = join(__dirname, 'output')
+      yield fp.writeToFile(output, { clean: false, overwrite: true })
+      const { devDependencies } = JSON.parse(
+        fs.readFileSync(join(output, 'package.json')).toString()
+      )
+
+      expect(fs.readFileSync(join(output, 'README.md')).toString()).toEqual(
+        expect.stringContaining('# abv\n')
+      )
+
+      expect(Object.keys(devDependencies)).toEqual(
+        expect.arrayContaining([
+          'typescript',
+          'babel-cli',
+          'babel-preset-env',
+          'babel-plugin-add-module-exports',
+          'babel-plugin-transform-class-properties',
+          'babel-plugin-transform-object-rest-spread',
+          'babel-plugin-transform-runtime'
+        ])
+      )
+
+      expect(Object.keys(devDependencies)).not.toEqual(
+        expect.arrayContaining(['jest', 'babel-jest', 'ts-jest'])
+      )
     })
+  )
 
-    const output = join(__dirname, 'output')
-    yield fp.writeToFile(output, { clean: false, overwrite: true })
-    const { devDependencies } = JSON.parse(fs.readFileSync(join(output, 'package.json')).toString())
+  it(
+    'should post learn',
+    co.wrap(function*() {
+      jest.setTimeout(600000)
 
-    expect(
-      fs.readFileSync(join(output, 'README.md')).toString()
-    ).toEqual(
-      expect.stringContaining('# abv\n')
-    )
+      const fp = yield mockPrompts(join(__dirname, '../'), {
+        test: true,
+        ci: true,
+        babel: true,
+        name: 'abv',
+        language: 'typescript',
+        lerna: true
+      })
 
-    expect(Object.keys(devDependencies)).toEqual(
-      expect.arrayContaining([
-        'typescript',
-        'babel-cli',
-        'babel-preset-env',
-        'babel-plugin-add-module-exports',
-        'babel-plugin-transform-class-properties',
-        'babel-plugin-transform-object-rest-spread',
-        'babel-plugin-transform-runtime'
-      ])
-    )
+      const output = join(__dirname, 'output')
+      yield fp.writeToFile(output, { clean: true, overwrite: true })
+      const { devDependencies } = JSON.parse(
+        fs.readFileSync(join(output, 'package.json')).toString()
+      )
 
-    expect(Object.keys(devDependencies)).not.toEqual(
-      expect.arrayContaining([
-        'jest',
-        'babel-jest',
-        'ts-jest'
-      ])
-    )
-  }))
+      expect(Object.keys(devDependencies)).toEqual(
+        expect.arrayContaining(['lerna'])
+      )
+    })
+  )
 })
