@@ -1,5 +1,4 @@
 /**
- * @file index
+ * {{{description}}}
  * @author {{_.git.name}}
- * @description
  */

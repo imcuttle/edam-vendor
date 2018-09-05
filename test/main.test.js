@@ -93,7 +93,7 @@ describe('main', function() {
         ci: true,
         babel: true,
         name: 'abv',
-        language: 'typescript',
+        language: 'javascript',
         lerna: false
       })
 
@@ -126,7 +126,7 @@ describe('main', function() {
   )
 
   it(
-    'should post learn',
+    'should post lerna',
     co.wrap(function*() {
       jest.setTimeout(600000)
 

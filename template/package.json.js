@@ -16,6 +16,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
       node: '>=6'
     },
     keywords: [_.git.name, name],
+    typings: language === 'typescript' ? 'dist/index.d.ts' : 'index.d.ts',
     license: 'MIT',
     repository: _.git.name + '/' + name
   }

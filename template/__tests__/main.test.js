@@ -3,11 +3,11 @@
  * @author imcuttle
  * @date 2018/4/4
  */
-const main = require('../')
+const {{camelCase name}} = require('../')
 
-describe('main', function() {
+describe('{{camelCase name}}', function() {
   it(
-    'should edam passed',
+    'should',
     function (done) {
       done()
     }

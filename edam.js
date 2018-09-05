@@ -152,6 +152,8 @@ module.exports = {
     }
     if (language !== 'typescript') {
       ignores.push('tsconfig.json')
+    } else {
+      ignores.push('index.d.ts')
     }
     return ignores
   },
