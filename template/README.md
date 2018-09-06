@@ -17,7 +17,7 @@ yarn add {{name}}
 
 ## Usage
 ```javascript
-import {{camelCase name}} from '{{name}}'
+import {{{camelCase name}}} from '{{name}}'
 ```
 
 {{#if documentation}}
@@ -25,6 +25,10 @@ import {{camelCase name}} from '{{name}}'
 {{/if}}
 
 ## Related
+
+## Authors
+
+This library is written and maintained by {{{_.git.name}}}, [{{{_.git.email}}}](mailto:{{{_.git.email}}}).
 
 ## License
 
