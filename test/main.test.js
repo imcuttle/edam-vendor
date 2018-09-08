@@ -42,7 +42,8 @@ describe('main', function() {
         ci: true,
         babel: false,
         documentation: true,
-        language: 'typescript'
+        changelog: true,
+        // language: 'typescript'
       })
 
       console.error(fp.tree['package.json'])
@@ -135,7 +136,8 @@ describe('main', function() {
         ci: true,
         babel: true,
         name: 'abv',
-        language: 'typescript',
+        documentation: true,
+        changelog: true,
         lerna: true
       })
 
