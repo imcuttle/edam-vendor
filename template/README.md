@@ -34,7 +34,7 @@ import {{{camelCase name}}} from '{{name}}'
 
 ## Authors
 
-This library is written and maintained by {{{_.git.name}}}, [{{{_.git.email}}}](mailto:{{{_.git.email}}}).
+This library is written and maintained by {{{_.git.name}}}, <a href="mailto:{{{_.git.email}}}">{{{_.git.email}}}</a>.
 
 ## License
 
