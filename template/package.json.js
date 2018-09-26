@@ -12,6 +12,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
       prepublishOnly: 'npm test',
       precommit: 'pretty-quick --staged'
     },
+    sideEffects: false,
     engines: {
       node: '>=6'
     },
