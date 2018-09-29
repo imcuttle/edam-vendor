@@ -140,7 +140,7 @@ module.exports = {
       'babelrc.json': '.babelrc'
     }
   },
-  ignore: ({ test, babel, ci, language }) => {
+  ignore: ({ test, babel, ci, lerna, language }) => {
     const ignores = []
     if (!test) {
       ignores.push('__tests__/**')
@@ -155,6 +155,9 @@ module.exports = {
       ignores.push('tsconfig.json')
     } else {
       ignores.push('index.d.ts')
+    }
+    if (!lerna) {
+      ignores.push('lerna.json')
     }
     return ignores
   },
