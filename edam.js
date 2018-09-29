@@ -161,7 +161,9 @@ module.exports = {
     }
     return ignores
   },
-  variables: {},
+  variables: ({ language }) => ({
+    isTs: language === 'typescript'
+  }),
   loaders: {
     prettier: prettierLoader
   },

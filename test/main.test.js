@@ -138,6 +138,7 @@ describe('main', function() {
         name: 'abv',
         documentation: true,
         changelog: true,
+        language: 'typescript',
         lerna: true
       })
 

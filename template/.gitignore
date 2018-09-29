@@ -8,4 +8,6 @@ coverage/
 .entry
 .dist
 .vscode
+{{#if isTs}}
 lib/
+{{/if}}
