@@ -108,6 +108,7 @@ module.exports = {
 
         if (language === 'typescript') {
           pkgs.push('typescript')
+          pkgs.push('rimraf')
         }
         if (documentation) {
           pkgs.push('documentation')

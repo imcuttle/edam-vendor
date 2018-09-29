@@ -1,4 +1,4 @@
-# {{name}}
+# {{{name}}}
 
 [![Build status](https://img.shields.io/travis/{{{_.git.name}}}/{{{name}}}/master.svg?style=flat-square)](https://travis-ci.org/{{{_.git.name}}}/{{{name}}})
 [![Test coverage](https://img.shields.io/codecov/c/github/{{{_.git.name}}}/{{{name}}}.svg?style=flat-square)](https://codecov.io/github/{{{_.git.name}}}/{{{name}}}?branch=master)
@@ -16,9 +16,9 @@
 ## Installation
 
 ```bash
-npm install {{name}}
+npm install {{{name}}}
 # or use yarn
-yarn add {{name}}
+yarn add {{{name}}}
 ```
 
 ## Usage
@@ -38,4 +38,4 @@ This library is written and maintained by {{{_.git.name}}}, <a href="mailto:{{{_
 
 ## License
 
-MIT
+MIT - [{{{_.git.name}}}](https://github.com/{{{_.git.name}}}/{{{name}}}) 🐟

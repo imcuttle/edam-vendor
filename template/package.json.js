@@ -6,18 +6,23 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     version: '1.0.0',
     main: 'index.js',
     description: description,
-    author: _.git.name,
+    author: `${_.git.name} <${_.git.email}>`,
     scripts: {
       test: 'jest',
-      prepublishOnly: 'npm test',
-      precommit: 'pretty-quick --staged'
+      prepublishOnly: 'npm test'
+    },
+    husky: {
+      hooks: {
+        precommit: 'pretty-quick --staged'
+      }
     },
     sideEffects: false,
     engines: {
       node: '>=6'
     },
+    files: ['lib', 'src'],
     keywords: [_.git.name, name],
-    typings: language === 'typescript' ? 'dist/index.d.ts' : 'index.d.ts',
+    typings: language === 'typescript' ? 'lib/index.d.ts' : 'index.d.ts',
     license: 'MIT',
     repository: _.git.name + '/' + name
   }
@@ -59,6 +64,11 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     }
   }
 
+  if (language === 'typescript') {
+    pkg.scripts.build = 'rimraf lib && tsc'
+    pkg.scripts.dev = 'npm run build -- -w'
+  }
+
   if (babel) {
     pkg.scripts.build = 'rimraf lib && babel src/ -Dd lib'
     pkg.scripts.dev = 'npm run build -- -w'
@@ -72,7 +82,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
 
   if (changelog) {
     appendCmd('scripts.version', 'npm run changelog')
-    pkg.scripts.commitmsg = 'commitlint -e $GIT_PARAMS'
+    pkg.husky.hooks.commitmsg = 'commitlint -e $GIT_PARAMS'
     pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
     pkg.commitlint = {
       extends: ['@commitlint/config-conventional']
