@@ -13,7 +13,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     },
     husky: {
       hooks: {
-        precommit: 'pretty-quick --staged'
+        ['pre-commit']: 'pretty-quick --staged'
       }
     },
     sideEffects: false,
@@ -82,7 +82,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
 
   if (changelog) {
     appendCmd('scripts.version', 'npm run changelog')
-    pkg.husky.hooks.commitmsg = 'commitlint -e $HUSKY_GIT_PARAMS'
+    pkg.husky.hooks['commit-msg'] = 'commitlint -e $HUSKY_GIT_PARAMS'
     pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
     pkg.commitlint = {
       extends: ['@commitlint/config-conventional']
