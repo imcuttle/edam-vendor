@@ -40,7 +40,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     Object.assign(pkg.scripts, {
       bootstrap: 'lerna bootstrap',
       prerelease: 'npm test',
-      release: "lerna publish --conventional-commits -m 'chore(release): publish %s'"
+      release: "lerna publish --conventional-commits -m 'chore(release): publish'"
     })
   }
 
