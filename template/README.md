@@ -38,4 +38,4 @@ This library is written and maintained by {{{_.git.name}}}, <a href="mailto:{{{_
 
 ## License
 
-MIT - [{{{_.git.name}}}](https://github.com/{{{_.git.name}}}/{{{name}}}) 🐟
+MIT - [{{{_.git.name}}}](https://github.com/{{{_.git.name}}}) 🐟
