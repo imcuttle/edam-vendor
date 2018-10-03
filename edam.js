@@ -130,12 +130,14 @@ module.exports = {
   move: ({ test, babel, ci, language }) => {
     if (language === 'typescript') {
       return {
+        'lerna.json.js': 'lerna.json',
         'index.js': 'index.ts',
         'package.json.js': 'package.json',
         'babelrc.json': '.babelrc'
       }
     }
     return {
+      'lerna.json.js': 'lerna.json',
       'package.json.js': 'package.json',
       'babelrc.json': '.babelrc'
     }
@@ -157,7 +159,7 @@ module.exports = {
       ignores.push('index.d.ts')
     }
     if (!lerna) {
-      ignores.push('lerna.json')
+      ignores.push('lerna.json.js')
     }
     return ignores
   },
