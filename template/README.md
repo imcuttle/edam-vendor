@@ -22,20 +22,26 @@ yarn add {{{name}}}
 ```
 
 ## Usage
+
 ```javascript
 import {{{camelCase name}}} from '{{name}}'
 ```
 
 {{#if documentation}}
+
 ## API
+
 {{/if}}
 
 ## Contributing
+
 - Fork it!
-- Create your new branch: `git checkout -b feature-new` or `git checkout -b fix-which-bug`
+- Create your new branch:  
+  `git checkout -b feature-new` or `git checkout -b fix-which-bug`
 - Start your magic work now
 - Make sure npm test passes
-- Commit your changes: `git commit -am 'feat: some description (close #123)'` or `git commit -am 'fix: some description (fix #123)'`
+- Commit your changes:  
+  `git commit -am 'feat: some description (close #123)'` or `git commit -am 'fix: some description (fix #123)'`
 - Push to the branch: `git push`
 - Submit a pull request :)
 
