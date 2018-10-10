@@ -76,7 +76,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
 
   if (documentation) {
     pkg.scripts.doc =
-      'documentation --github --markdown-toc=false readme index.js -a public -s "API" && git commit -am "chore: update readme"'
+      'documentation --github --markdown-toc=false readme index.js -a public -s "API" && git add README.md'
     appendCmd('scripts.version', 'npm run doc')
   }
 
