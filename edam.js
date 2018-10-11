@@ -80,6 +80,7 @@ module.exports = {
           language
         } = yield this.variables.get()
 
+        let deps = []
         let pkgs = ['prettier', 'pretty-quick', 'husky']
         if (lerna) {
           pkgs.push('lerna')
@@ -94,6 +95,7 @@ module.exports = {
             'babel-plugin-transform-object-rest-spread',
             'babel-plugin-transform-runtime'
           ])
+          deps.push('babel-runtime')
         }
         if (test) {
           pkgs.push('jest')
@@ -119,6 +121,9 @@ module.exports = {
           pkgs.push('@commitlint/config-conventional')
         }
 
+        if (deps.length) {
+          yield install(deps, { cwd: output, dev: false })
+        }
         yield install(pkgs, { cwd: output, dev: true })
 
         if (lerna) {
@@ -173,11 +178,8 @@ module.exports = {
     {
       // test: /.+?\..+?$/,
       test: '**/*.{md,json,jsx?,tsx?}',
-      loader: [
-        'hbs',
-        [prettierLoader, { filePath: PRETTIER_CONFIG_PATH }]
-      ]
-    },
+      loader: ['hbs', [prettierLoader, { filePath: PRETTIER_CONFIG_PATH }]]
+    }
     // {
     //   test: '**/*.json',
     //   loader: [
