@@ -7,7 +7,7 @@ module.exports = ({ test, babel, language, documentation }) => {
     command: {
       publish: {
         conventionalCommits: true,
-        message: 'chore(release): publish'
+        message: 'chore(release): publish %s'
       },
       bootstrap: {
         hoist: false,
