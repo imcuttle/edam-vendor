@@ -20,7 +20,6 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     engines: {
       node: '>=6'
     },
-    files: ['lib', 'src'],
     keywords: [_.git.name].concat(name.split('-')).concat(name),
     typings: language === 'typescript' ? 'lib/index.d.ts' : 'index.d.ts',
     license: 'MIT',
