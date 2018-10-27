@@ -4,10 +4,9 @@
 
 const nps = require('path')
 
-function fixture(name = '') {
-  return nps.join(__dirname, 'fixture', name)
+function fixture() {
+  return nps.join.apply(nps, [__dirname, 'fixture'].concat(arguments))
 }
-
 
 module.exports = {
   fixture
