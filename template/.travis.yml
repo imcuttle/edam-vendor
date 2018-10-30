@@ -33,10 +33,10 @@ jobs:
       script: npm test -- --coverage
       after_script: codecov --token=$CODECOV_TOKEN
 {{else}}
+{{#if lerna}}
 before_script:
-  {{#if lerna}}
   - npm run bootstrap
-  {{/if}}
+{{/if}}
 script:
   - npm test -- --coverage
 after_script:
