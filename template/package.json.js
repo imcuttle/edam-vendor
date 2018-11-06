@@ -18,7 +18,7 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     },
     sideEffects: false,
     engines: {
-      node: '>=6'
+      node: '>=8'
     },
     keywords: [_.git.name].concat(name.split('-')).concat(name),
     typings: language === 'typescript' ? 'lib/index.d.ts' : 'index.d.ts',
