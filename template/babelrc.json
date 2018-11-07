@@ -13,16 +13,9 @@
     ]
   ],
   "plugins": [
-    // "transform-decorators-legacy",
+    "transform-async-to-generator",
     "add-module-exports",
     "transform-class-properties",
-    "transform-object-rest-spread",
-    [
-      "transform-runtime",
-      {
-        "polyfill": false,
-        "regenerator": true
-      }
-    ]
+    "transform-object-rest-spread"
   ]
 }

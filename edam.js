@@ -93,9 +93,8 @@ module.exports = {
             'babel-plugin-add-module-exports',
             'babel-plugin-transform-class-properties',
             'babel-plugin-transform-object-rest-spread',
-            'babel-plugin-transform-runtime'
+            'babel-plugin-transform-async-to-generator'
           ])
-          deps.push('babel-runtime')
         }
         if (test) {
           pkgs.push('jest')
