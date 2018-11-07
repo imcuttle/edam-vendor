@@ -5,8 +5,9 @@
       {
         "targets": {
           "node": "6",
-          "browsers": ["ie>=9"]
+          "browsers": ["last 2 versions"]
         },
+        "exclude": ["transform-regenerator"],
         "loose": true,
         "useBuiltIns": true
       }
