@@ -65,10 +65,12 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
 
   if (language === 'typescript') {
     pkg.scripts.build = 'rimraf lib && tsc'
+    pkg.scripts.prepare = 'npm run build'
     pkg.scripts.dev = 'npm run build -- -w'
   }
 
   if (babel) {
+    pkg.scripts.prepare = 'npm run build'
     pkg.scripts.build = 'rimraf lib && babel src/ -Dd lib'
     pkg.scripts.dev = 'npm run build -- -w'
   }
