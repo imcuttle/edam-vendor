@@ -5,7 +5,7 @@ module.exports = function({ _, test, description, name } = {}) {
     name,
     version: '1.0.0',
     dependencies: {},
-    main: 'edam.js',
+    'edam:main': 'edam.js',
     description: description,
     author: _.git.name,
     scripts: {
