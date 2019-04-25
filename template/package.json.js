@@ -1,10 +1,12 @@
 // @loader module?indent=2
 
-module.exports = function({ _, test, lerna, changelog, documentation, description, babel, language, name } = {}) {
+module.exports = function({ _, test, rollup, lerna, changelog, documentation, description, babel, language, name } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
     main: 'index.js',
+    module: 'index.module.js',
+    browser: 'index.umd.js',
     description: description,
     author: `${_.git.name} <${_.git.email}>`,
     scripts: {
@@ -69,9 +71,9 @@ module.exports = function({ _, test, lerna, changelog, documentation, descriptio
     pkg.scripts.dev = 'npm run build -- -w'
   }
 
-  if (babel) {
+  if (babel || rollup) {
     pkg.scripts.prepare = 'npm run build'
-    pkg.scripts.build = 'rimraf lib && babel src/ -Dd lib'
+    pkg.scripts.build = rollup ? 'rollup -c' : 'rimraf lib && babel src/ -Dd lib'
     pkg.scripts.dev = 'npm run build -- -w'
   }
 

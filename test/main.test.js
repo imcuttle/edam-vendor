@@ -14,7 +14,7 @@ describe('main', function() {
   it(
     'should edam passed',
     co.wrap(function*() {
-      const fp = yield mockPrompts(join(__dirname, '../'), {
+      const fp = yield mockPrompts(join(__dirname, '..'), {
         test: true,
         ci: true,
         babel: true,
@@ -86,6 +86,41 @@ describe('main', function() {
   )
 
   it(
+    'should rollup',
+    co.wrap(function*() {
+      jest.setTimeout(60000)
+      const fp = yield mockPrompts(join(__dirname, '../'), {
+        test: false,
+        ci: true,
+        babel: true,
+        rollup: true,
+        name: 'abv',
+        language: 'javascript',
+        lerna: false
+      })
+
+      const output = join(__dirname, 'output')
+      yield fp.writeToFile(output, { clean: false, overwrite: true })
+      const { devDependencies, scripts } = JSON.parse(
+        fs.readFileSync(join(output, 'package.json')).toString()
+      )
+
+      // expect(scripts).
+      expect(Object.keys(devDependencies)).toEqual(
+        expect.arrayContaining([
+          'rollup',
+          'typescript',
+          'babel-cli',
+          'babel-preset-env',
+          'babel-plugin-transform-class-properties',
+          'babel-plugin-transform-object-rest-spread',
+          'babel-plugin-transform-runtime'
+        ])
+      )
+    })
+  )
+
+  it(
     'should post',
     co.wrap(function*() {
       jest.setTimeout(60000)
@@ -113,7 +148,6 @@ describe('main', function() {
           'typescript',
           'babel-cli',
           'babel-preset-env',
-          'babel-plugin-add-module-exports',
           'babel-plugin-transform-class-properties',
           'babel-plugin-transform-object-rest-spread',
           'babel-plugin-transform-runtime'

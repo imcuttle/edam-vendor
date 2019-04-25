@@ -47,6 +47,12 @@ module.exports = {
       default: true
     },
     {
+      name: 'rollup',
+      type: 'confirm',
+      message: 'Do you use rollup?',
+      default: false
+    },
+    {
       name: 'test',
       type: 'confirm',
       message: 'Do you want to use test (jest)?',
@@ -74,6 +80,7 @@ module.exports = {
           _: { install },
           test,
           babel,
+          rollup,
           documentation,
           changelog,
           lerna,
@@ -85,12 +92,17 @@ module.exports = {
         if (lerna) {
           pkgs.push('lerna')
         }
+        if (rollup) {
+          pkgs = pkgs.concat([
+            babel && 'rollup-plugin-babel@3',
+            'rollup'
+          ]).filter(Boolean)
+        }
         if (babel) {
           pkgs = pkgs.concat([
             'rimraf',
             'babel-cli',
             'babel-preset-env',
-            'babel-plugin-add-module-exports',
             'babel-plugin-transform-class-properties',
             'babel-plugin-transform-object-rest-spread',
           ])
@@ -145,10 +157,13 @@ module.exports = {
       'babelrc.json': '.babelrc'
     }
   },
-  ignore: ({ test, babel, ci, lerna, language }) => {
+  ignore: ({ test, babel, rollup, ci, lerna, language }) => {
     const ignores = []
     if (!test) {
       ignores.push('__tests__/**')
+    }
+    if (!rollup) {
+      ignores.push('rollup.config.js')
     }
     if (!ci) {
       ignores.push('.travis.yml')
