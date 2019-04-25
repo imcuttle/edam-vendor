@@ -2,6 +2,13 @@
 
 This is a useful edam template about Node.js module.
 
+## How to use?
+
+```bash
+npm i -g edam-cli
+edam imcuttle/edam-vendor?checkout=nodejs-module
+```
+
 ## Feature
 
 - Multi-languages - supports typescript and javascript.
