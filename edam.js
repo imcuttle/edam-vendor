@@ -148,13 +148,13 @@ module.exports = {
         'lerna.json.js': 'lerna.json',
         'index.js': 'index.ts',
         'package.json.js': 'package.json',
-        'babelrc.json': '.babelrc'
+        'babelrc.js': '.babelrc'
       }
     }
     return {
       'lerna.json.js': 'lerna.json',
       'package.json.js': 'package.json',
-      'babelrc.json': '.babelrc'
+      'babelrc.js': '.babelrc'
     }
   },
   ignore: ({ test, babel, rollup, ci, lerna, language }) => {

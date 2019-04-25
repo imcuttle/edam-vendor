@@ -3,19 +3,19 @@ import pkg from './package.json';
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'index.js',
     output: [
       {
-        name: '{{{titleCase name}}}',
+        name: 'OpenOneWindow',
         file: pkg.browser,
         format: 'umd'
       },
       { file: pkg.module, format: 'es' },
+      { file: pkg.main, format: 'cjs' },
     ],
     plugins: [
       // babel({
       //   babelrc: true,
-      //   presets: [['@babel/preset-env', { targets: {ie: '11'}, modules: false }]],
       // })
     ]
   }
