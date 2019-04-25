@@ -1,6 +1,6 @@
 {
   "name": "nodejs-module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "dependencies": {
     "co": "^4.6.0",
     "edam-prettier-loader": "^2.3.5",
