@@ -100,16 +100,26 @@ module.exports = {
         }
         if (babel) {
           pkgs = pkgs.concat([
-            'rimraf',
             'babel-cli',
             'babel-preset-env',
             'babel-plugin-transform-class-properties',
             'babel-plugin-transform-object-rest-spread',
           ])
         }
+        if (rollup && !babel) {
+          pkgs = pkgs.concat([
+            'rimraf',
+            'babel-plugin-transform-es2015-modules-commonjs',
+          ])
+        }
+
+        if (rollup || babel) {
+          pkgs = pkgs.concat(['rimraf'])
+        }
+
         if (test) {
-          pkgs.push('jest')
-          pkgs.push('@types/jest')
+          pkgs.push('jest@23')
+          pkgs.push('@types/jest@23')
           if (babel) {
             pkgs.push('babel-jest')
           }
@@ -168,7 +178,7 @@ module.exports = {
     if (!ci) {
       ignores.push('.travis.yml')
     }
-    if (!babel) {
+    if (!babel && !rollup) {
       ignores.push('babelrc.js')
     }
     if (language !== 'typescript') {

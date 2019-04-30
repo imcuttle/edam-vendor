@@ -88,7 +88,8 @@ module.exports = function({
   if (rollup) {
     Object.assign(pkg, {
       main: 'dist/index.cjs.js',
-      module: 'dist/index.module.js',
+      // module: 'dist/index.module.js',
+      module: 'index.js',
       browser: 'dist/index.umd.js'
     })
   }

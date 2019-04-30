@@ -1,6 +1,12 @@
 // @loader module?indent=2
 
-module.exports = ({ rollup }) => {
+module.exports = ({ rollup, babel }) => {
+  if (rollup && !babel) {
+    return {
+      plugins: ['transform-es2015-modules-commonjs']
+    }
+  }
+
   return {
     presets: [
       [
