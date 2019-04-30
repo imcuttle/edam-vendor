@@ -35,9 +35,15 @@ jobs:
 before_script:
   - npm run bootstrap
 {{/if}}
+{{#if test}}
 script:
+{{#or rollup babel}}
+  - npm run test-ci -- --coverage
+{{else}}
   - npm test -- --coverage
+{{/or}}
 after_script:
   - npm install codecov --no-save
   - codecov --token=$CODECOV_TOKEN
+{{/if}}
 {{/if}}

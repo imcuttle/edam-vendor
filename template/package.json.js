@@ -81,10 +81,15 @@ module.exports = function({
   }
 
   if (babel || rollup) {
+    if (test) {
+      pkg.scripts['test-ci'] = 'npm run clean && npm test'
+    }
     pkg.scripts.prepare = 'npm run build'
-    pkg.scripts.build = rollup ? 'rimraf dist && rollup -c' : 'rimraf lib && babel src/ -Dd lib'
+    pkg.scripts.clean = rollup ? 'rimraf dist' : 'rimraf lib'
+    pkg.scripts.build = rollup ? 'npm run clean && rollup -c' : 'npm run clean && babel src/ -Dd lib'
     pkg.scripts.dev = 'npm run build -- -w'
   }
+
   if (rollup) {
     Object.assign(pkg, {
       main: 'dist/index.cjs.js',
