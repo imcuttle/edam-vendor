@@ -169,7 +169,7 @@ module.exports = {
       ignores.push('.travis.yml')
     }
     if (!babel) {
-      ignores.push('babelrc.json')
+      ignores.push('babelrc.js')
     }
     if (language !== 'typescript') {
       ignores.push('tsconfig.json')
