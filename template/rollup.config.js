@@ -6,7 +6,7 @@ export default [
     input: 'index.js',
     output: [
       {
-        name: 'OpenOneWindow',
+        name: '{{{pascalCase name}}}',
         file: pkg.browser,
         format: 'umd'
       },
