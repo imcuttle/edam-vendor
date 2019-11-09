@@ -118,8 +118,8 @@ module.exports = {
         }
 
         if (test) {
-          pkgs.push('jest@23')
-          pkgs.push('@types/jest@23')
+          pkgs.push('jest')
+          pkgs.push('@types/jest')
           if (babel) {
             pkgs.push('babel-jest')
           }
