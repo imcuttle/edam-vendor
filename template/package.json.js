@@ -79,8 +79,8 @@ module.exports = function ({
 
   if (language === 'typescript') {
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
-    pkg.scripts['build:es'] = 'npx tsc --outDir es --module ES6'
-    pkg.scripts['build:cjs'] = 'npx tsc --outDir lib'
+    pkg.scripts['build:es'] = 'tsc --outDir es --module ES6'
+    pkg.scripts['build:cjs'] = 'tsc --outDir lib'
     pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
   }
@@ -89,10 +89,10 @@ module.exports = function ({
     //   pkg.scripts['test-ci'] = 'npm run clean && npm test'
     // }
     pkg.scripts.prepare = 'npm run build'
-    pkg.scripts.clean = 'rimraf types es lib'
+    pkg.scripts.clean = 'rimraf es lib'
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
-    pkg.scripts['build:es'] = 'BABEL_ENV=es npx babel --config-file babel.config.js --out-dir es'
-    pkg.scripts['build:cjs'] = 'npx babel --config-file babel.config.js --out-dir lib'
+    pkg.scripts['build:es'] = 'BABEL_ENV=es babel src --out-dir es'
+    pkg.scripts['build:cjs'] = 'babel src --out-dir lib'
   }
 
   if (documentation) {
