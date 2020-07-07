@@ -9,5 +9,12 @@ coverage/
 .dist
 .vscode
 {{#if isTs}}
-lib/
+/lib/
+/types/
+/es/
+{{/if}}
+
+{{#if babel}}
+/lib/
+/es/
 {{/if}}

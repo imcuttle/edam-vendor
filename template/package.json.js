@@ -1,26 +1,24 @@
 // @loader module?indent=2
 
-module.exports = function({
-  _,
-  test,
-  rollup,
-  lerna,
-  changelog,
-  documentation,
-  description,
-  babel,
-  language,
-  name
-} = {}) {
+module.exports = function ({
+     _,
+     test,
+     lerna,
+     changelog,
+     documentation,
+     description,
+     babel,
+     language,
+     name
+   } = {}) {
   const pkg = {
     name,
     version: '1.0.0',
-    main: 'index.js',
     description: description,
     author: `${_.git.name} <${_.git.email}>`,
     scripts: {
-      test: 'jest',
-      prepublishOnly: 'npm test'
+      test: 'npx jest',
+      preversion: 'npm test'
     },
     husky: {
       hooks: {
@@ -32,10 +30,16 @@ module.exports = function({
       node: '>=8'
     },
     keywords: [_.git.name].concat(name.split('-')).concat(name),
-    typings: language === 'typescript' ? 'lib/index.d.ts' : 'index.d.ts',
+    main: (babel || language === 'typescript') ? 'lib' : 'src',
+    types: language === 'typescript' ? 'types' : 'src/index.d.ts',
     license: 'MIT',
     repository: _.git.name + '/' + name
   }
+
+  if (babel || language === 'typescript') {
+    pkg.module = 'es'
+  }
+
 
   function appendCmd(path, cmd) {
     const old = _.get(pkg, path)
@@ -48,9 +52,8 @@ module.exports = function({
 
   if (lerna) {
     Object.assign(pkg.scripts, {
-      bootstrap: 'lerna bootstrap',
-      prerelease: 'npm test',
-      release: "lerna publish --conventional-commits -m 'chore(release): publish'"
+      bootstrap: 'npx lerna bootstrap',
+      release: "npx lerna publish --conventional-commits -m 'chore(release): publish'"
     })
   }
 
@@ -75,28 +78,21 @@ module.exports = function({
   }
 
   if (language === 'typescript') {
-    pkg.scripts.build = 'rimraf lib && tsc'
+    pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
+    pkg.scripts['build:es'] = 'npx tsc --outDir es'
+    pkg.scripts['build:cjs'] = 'npx tsc --outDir lib'
+    pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
-    pkg.scripts.dev = 'npm run build -- -w'
   }
-
-  if (babel || rollup) {
-    if (test) {
-      pkg.scripts['test-ci'] = 'npm run clean && npm test'
-    }
+  else if (babel) {
+    // if (test) {
+    //   pkg.scripts['test-ci'] = 'npm run clean && npm test'
+    // }
     pkg.scripts.prepare = 'npm run build'
-    pkg.scripts.clean = rollup ? 'rimraf dist' : 'rimraf lib'
-    pkg.scripts.build = rollup ? 'npm run clean && rollup -c' : 'npm run clean && babel src/ -Dd lib'
-    pkg.scripts.dev = 'npm run build -- -w'
-  }
-
-  if (rollup) {
-    Object.assign(pkg, {
-      main: 'dist/index.cjs.js',
-      // module: 'dist/index.module.js',
-      module: 'index.js',
-      browser: 'dist/index.umd.js'
-    })
+    pkg.scripts.clean = 'rimraf types es lib'
+    pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
+    pkg.scripts['build:es'] = 'npx babel --config-file babel.config.js --out-dir es'
+    pkg.scripts['build:cjs'] = 'npx babel --config-file babel.config.js --out-dir lib'
   }
 
   if (documentation) {
