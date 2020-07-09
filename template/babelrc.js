@@ -4,6 +4,10 @@ module.exports = () => {
   return {
     presets: [
       ['@babel/env', {
+        targets: {
+          node: '>=10',
+          browsers: ['defaults']
+        },
         exclude: ['transform-regenerator'],
         loose: true, modules: 'commonjs'
       }],

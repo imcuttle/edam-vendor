@@ -27,7 +27,7 @@ module.exports = function ({
     },
     sideEffects: false,
     engines: {
-      node: '>=8'
+      node: '>=10'
     },
     keywords: [_.git.name].concat(name.split('-')).concat(name),
     main: (babel || language === 'typescript') ? 'lib' : 'src',
