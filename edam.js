@@ -135,7 +135,8 @@ module.exports = {
   move: ({test, babel, ci, language}) => {
     if (language === 'typescript') {
       return {
-        'index.js': 'index.ts',
+        'src/**.js': 'src/[name].ts',
+        '__tests__/**.js': '__tests__/[name].ts',
         'lerna.json.js': 'lerna.json',
         'package.json.js': 'package.json',
         'babelrc.js': '.babelrc',
