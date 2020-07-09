@@ -3,7 +3,10 @@
 module.exports = () => {
   return {
     presets: [
-      ['@babel/env', {loose: true, modules: 'commonjs'}],
+      ['@babel/env', {
+        exclude: ['transform-regenerator'],
+        loose: true, modules: 'commonjs'
+      }],
       // '@babel/react',
     ],
     plugins: [
@@ -12,7 +15,9 @@ module.exports = () => {
     env: {
       es: {
         presets: [
-          ['@babel/env', {loose: true, modules: false}],
+          ['@babel/env', {
+            exclude: ['transform-regenerator'], loose: true, modules: false
+          }],
         ],
       }
     },
