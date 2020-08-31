@@ -29,6 +29,13 @@ module.exports = function ({
     engines: {
       node: '>=10'
     },
+    files: [
+      'es',
+      'types',
+      'lib',
+      'src',
+      '__tests__'
+    ],
     keywords: [_.git.name].concat(name.split('-')).concat(name),
     main: (babel || language === 'typescript') ? 'lib' : 'src',
     types: language === 'typescript' ? 'types' : 'src/index.d.ts',
