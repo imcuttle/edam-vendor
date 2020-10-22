@@ -99,9 +99,10 @@ module.exports = function ({
     // }
     pkg.scripts.prepare = 'npm run build'
     pkg.scripts.clean = 'rimraf es lib'
+    pkg.scripts.dev = 'BABEL_CLI_OPTIONS="--watch" npm run build'
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
-    pkg.scripts['build:es'] = 'BABEL_ENV=es babel src --out-dir es'
-    pkg.scripts['build:cjs'] = 'babel src --out-dir lib'
+    pkg.scripts['build:es'] = 'BABEL_ENV=es babel $BABEL_CLI_OPTIONS src --out-dir es'
+    pkg.scripts['build:cjs'] = 'babel $BABEL_CLI_OPTIONS src --out-dir lib'
   }
 
   if (documentation) {
