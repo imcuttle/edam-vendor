@@ -86,9 +86,10 @@ module.exports = function ({
 
   if (language === 'typescript') {
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
-    pkg.scripts['build:es'] = 'tsc --outDir es --module es6'
-    pkg.scripts['build:cjs'] = 'tsc --outDir lib'
-    pkg.scripts['build:tds'] = 'tsc --emitDeclarationOnly -d'
+    pkg.scripts.dev = 'TSC_OPTIONS="--watch" npm run build'
+    pkg.scripts['build:es'] = 'tsc $TSC_OPTIONS --outDir es --module es6'
+    pkg.scripts['build:cjs'] = 'tsc $TSC_OPTIONS --outDir lib'
+    pkg.scripts['build:tds'] = 'tsc $TSC_OPTIONS --emitDeclarationOnly -d'
     pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
   }
