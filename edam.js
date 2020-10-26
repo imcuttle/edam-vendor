@@ -84,7 +84,8 @@ module.exports = {
         let deps = []
         let pkgs = ['prettier', 'pretty-quick', 'husky']
         if (lerna) {
-          pkgs.push('lerna')
+          pkgs.push('lerna-cli')
+          pkgs.push('lerna-command-toc')
         }
         if (babel) {
           pkgs = pkgs.concat([

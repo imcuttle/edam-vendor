@@ -4,13 +4,16 @@ module.exports = ({ test, babel, language, documentation }) => {
   const config = {
     packages: ['packages/*'],
     version: '0.0.0',
+    extendCommands: [
+      'lerna-command-toc'
+    ],
     command: {
       publish: {
         conventionalCommits: true,
-        message: 'chore(release): publish %s'
+        message: 'chore(release): publish'
       },
       bootstrap: {
-        hoist: false,
+        hoist: true,
         npmClientArgs: []
       }
     },

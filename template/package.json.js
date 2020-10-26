@@ -34,7 +34,6 @@ module.exports = function ({
       'types',
       'lib',
       'src',
-      '__tests__'
     ],
     keywords: [_.git.name].concat(name.split('-')).concat(name),
     main: (babel || language === 'typescript') ? 'lib' : 'src',

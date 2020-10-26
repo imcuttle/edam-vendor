@@ -15,7 +15,7 @@ edam https://github.com/imcuttle/edam-vendor.git?checkout=nodejs-module
 - Babel dependiencies - presets the most frequent babel configuration.
 - Test - supports jest for testing.
 - auto-document - uses documentation for generating API doc.
-- lerna
+- [lerna-cli](https://github.com/imcuttle/lerna-cli)
 - rollup
 - prettier & git hooks
 - commitlint
