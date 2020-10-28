@@ -57,7 +57,7 @@ module.exports = {
       when: ({test}) => test,
       type: 'list',
       choices: ['jest', 'ava'],
-      message: 'Which one?',
+      message: 'Which test framework?',
       default: 'jest'
     },
     {

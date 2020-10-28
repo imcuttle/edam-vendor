@@ -79,14 +79,15 @@ module.exports = function ({
         pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
       }
     } else {
-      pkg.ava = {
-        files: ['__tests__/**/*.test.ts']
-      }
+      pkg.ava = {}
       if (language === 'typescript') {
+        pkg.ava.files = ['__tests__/**/*.test.ts{,x}']
         Object.assign(pkg.ava, {
-          extensions: ['ts'],
+          extensions: ['ts', 'tsx'],
           require: ['ts-node/register']
         })
+      } else {
+        pkg.ava.files = ['__tests__/**/*.test.js{,x}']
       }
       if (babel) {
         Object.assign(pkg.ava, {
