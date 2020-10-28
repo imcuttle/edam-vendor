@@ -38,7 +38,11 @@ script:
 {{#or rollup babel}}
   - npm run test-ci -- --coverage
 {{else}}
+{{#if isJest}}
   - npm test -- --coverage
+{{else}}
+  - npx nyc $(npm bin)/ava
+{{/if}}
 {{/or}}
 after_script:
   - npm install codecov --no-save

@@ -49,8 +49,16 @@ module.exports = {
     {
       name: 'test',
       type: 'confirm',
-      message: 'Do you want to use test (jest)?',
+      message: 'Do you want to use test?',
       default: true
+    },
+    {
+      name: 'testType',
+      when: ({test}) => test,
+      type: 'list',
+      choices: ['jest', 'ava'],
+      message: 'Which one?',
+      default: 'jest'
     },
     {
       name: 'ci',
@@ -78,6 +86,7 @@ module.exports = {
           documentation,
           changelog,
           lerna,
+          testType,
           language
         } = yield this.variables.get()
 
@@ -100,13 +109,24 @@ module.exports = {
         }
 
         if (test) {
-          pkgs.push('jest')
-          pkgs.push('@types/jest')
-          if (babel) {
-            pkgs.push('babel-jest')
-          }
-          if (language === 'typescript') {
-            pkgs.push('ts-jest')
+          if (testType === 'jest') {
+            pkgs.push('jest')
+            pkgs.push('@types/jest')
+            if (babel) {
+              pkgs.push('babel-jest')
+            }
+            if (language === 'typescript') {
+              pkgs.push('ts-jest')
+            }
+          } else {
+            pkgs.push('ava')
+
+            if (babel) {
+              pkgs.push('@ava/babel')
+            }
+            if (language === 'typescript') {
+              pkgs.push('ts-node')
+            }
           }
         }
 
@@ -170,8 +190,9 @@ module.exports = {
     }
     return ignores
   },
-  variables: ({language, babel}) => ({
-    isTs: language === 'typescript'
+  variables: ({language, babel, testType}) => ({
+    isTs: language === 'typescript',
+    isJest: testType === 'jest',
   }),
   loaders: {
     prettier: prettierLoader

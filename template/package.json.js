@@ -1,23 +1,25 @@
 // @loader module?indent=2
 
 module.exports = function ({
-     _,
-     test,
-     lerna,
-     changelog,
-     documentation,
-     description,
-     babel,
-     language,
-     name
-   } = {}) {
+  _,
+  test,
+  lerna,
+  changelog,
+  documentation,
+  description,
+  babel,
+  language,
+  testType,
+  name
+} = {}) {
   const pkg = {
     name,
     version: '1.0.0',
     description: description,
     author: `${_.git.name} <${_.git.email}>`,
     scripts: {
-      test: 'npx jest',
+      test: testType === 'jest' ? 'npx jest' : 'npx ava',
+      'test:watch': 'npm test -- --watch',
       preversion: 'npm test'
     },
     husky: {
@@ -29,14 +31,9 @@ module.exports = function ({
     engines: {
       node: '>=10'
     },
-    files: [
-      'es',
-      'types',
-      'lib',
-      'src',
-    ],
+    files: ['es', 'types', 'lib', 'src'],
     keywords: [_.git.name].concat(name.split('-')).concat(name),
-    main: (babel || language === 'typescript') ? 'lib' : 'src',
+    main: babel || language === 'typescript' ? 'lib' : 'src',
     types: language === 'typescript' ? 'types' : 'src/index.d.ts',
     license: 'MIT',
     repository: _.git.name + '/' + name
@@ -45,7 +42,6 @@ module.exports = function ({
   if (babel || language === 'typescript') {
     pkg.module = 'es'
   }
-
 
   function appendCmd(path, cmd) {
     const old = _.get(pkg, path)
@@ -66,20 +62,39 @@ module.exports = function ({
   if (!test) {
     delete pkg.scripts.test
   } else {
-    if (language === 'typescript') {
-      pkg.jest = {
-        transform: {
-          '^.+\\.tsx?$': 'ts-jest',
-          '^.+\\.jsx?$': 'babel-jest'
-        },
-        moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+    if (testType === 'jest') {
+      if (language === 'typescript') {
+        pkg.jest = {
+          transform: {
+            '^.+\\.tsx?$': 'ts-jest',
+            '^.+\\.jsx?$': 'babel-jest'
+          },
+          moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+        }
       }
-    }
-    pkg.jest = pkg.jest || {}
-    pkg.jest.testMatch = ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}']
-    if (babel) {
-      pkg.jest.transform = pkg.jest.transform || {}
-      pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
+      pkg.jest = pkg.jest || {}
+      pkg.jest.testMatch = ['**/__test{s,}__/*.(spec|test).{t,j}s{x,}']
+      if (babel) {
+        pkg.jest.transform = pkg.jest.transform || {}
+        pkg.jest.transform['^.+\\.jsx?$'] = 'babel-jest'
+      }
+    } else {
+      pkg.ava = {
+        files: ['__tests__/**/*.test.ts']
+      }
+      if (language === 'typescript') {
+        Object.assign(pkg.ava, {
+          extensions: ['ts'],
+          require: ['ts-node/register']
+        })
+      }
+      if (babel) {
+        Object.assign(pkg.ava, {
+          babel: {
+            extensions: ['js', 'jsx', 'ts', 'tsx']
+          }
+        })
+      }
     }
   }
 
@@ -91,8 +106,7 @@ module.exports = function ({
     pkg.scripts['build:tds'] = 'tsc $TSC_OPTIONS --emitDeclarationOnly -d'
     pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
-  }
-  else if (babel) {
+  } else if (babel) {
     // if (test) {
     //   pkg.scripts['test-ci'] = 'npm run clean && npm test'
     // }
