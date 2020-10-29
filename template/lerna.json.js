@@ -17,7 +17,7 @@ module.exports = ({ test, babel, language, documentation }) => {
         npmClientArgs: []
       }
     },
-    ignoreChanges: ['**/__fixtures__/**', '**/__tests__/**']
+    ignoreChanges: ['**/__fixtures__/**', '**/__tests__/**', '**/package.json']
   }
 
   const appendHoist = name => {
