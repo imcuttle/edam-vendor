@@ -9,10 +9,6 @@ cache:
   directories:
     - node_modules
 
-#install:
-  # - npm install
-
-
 {{#if lerna}}
 jobs:
   include:
@@ -35,6 +31,7 @@ before_script:
 {{/if}}
 {{#if test}}
 script:
+  - npm install codecov nyc --no-save
 {{#or rollup babel}}
   - npm run test-ci -- --coverage
 {{else}}
@@ -45,7 +42,10 @@ script:
 {{/if}}
 {{/or}}
 after_script:
-  - npm install codecov --no-save
-  - codecov --token=$CODECOV_TOKEN
+{{#if isJest}}
+  - npx codecov --token=$CODECOV_TOKEN
+{{else}}
+  - npx nyc --reporter=text-lcov | npx codecov --token=$CODECOV_TOKEN --pipe
+{{/if}}
 {{/if}}
 {{/if}}
