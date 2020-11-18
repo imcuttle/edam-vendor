@@ -126,6 +126,7 @@ module.exports = {
             }
             if (language === 'typescript') {
               pkgs.push('ts-node')
+              pkgs.push('@types/node')
             }
           }
         }
