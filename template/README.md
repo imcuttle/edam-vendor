@@ -24,7 +24,7 @@ yarn add {{{name}}}
 ## Usage
 
 ```javascript
-const {{{camelCase name}}} = require('{{name}}')
+import {{{camelCase name}}} = from '{{name}}'
 ```
 
 {{#if documentation}}
