@@ -21,7 +21,9 @@ module.exports = ({ test, babel, language, documentation }) => {
   }
 
   const appendHoist = name => {
-    config.command.bootstrap.hoist = config.command.bootstrap.hoist || []
+    if (!Array.isArray(config.command.bootstrap.hoist)) {
+      config.command.bootstrap.hoist = []
+    }
     config.command.bootstrap.hoist.push(name)
   }
 
