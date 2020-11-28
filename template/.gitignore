@@ -1,6 +1,6 @@
 .idea/
 .DS_Store
-/node_modules/
+node_modules/
 dist/
 public/
 **/*debug.log
@@ -9,12 +9,12 @@ coverage/
 .dist
 .vscode
 {{#if isTs}}
-/lib/
-/types/
-/es/
+lib/
+types/
+es/
 {{/if}}
 
 {{#if babel}}
-/lib/
-/es/
+lib/
+es/
 {{/if}}
