@@ -12,6 +12,9 @@ module.exports = ({ test, babel, language, documentation }) => {
         conventionalCommits: true,
         message: 'chore(release): publish'
       },
+      run: {
+        stream: true
+      },
       bootstrap: {
         hoist: true,
         npmClientArgs: []
