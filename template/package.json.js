@@ -24,7 +24,7 @@ module.exports = function ({
     },
     husky: {
       hooks: {
-        ['pre-commit']: 'pretty-quick --staged'
+        ['pre-commit']: lerna ? 'npx lerna toc && git add README.md && pretty-quick --staged' : 'pretty-quick --staged'
       }
     },
     sideEffects: false,
@@ -54,6 +54,7 @@ module.exports = function ({
 
   if (lerna) {
     Object.assign(pkg.scripts, {
+      new: 'npx edam',
       bootstrap: 'npx lerna bootstrap',
       release: "npx lerna publish --conventional-commits -m 'chore(release): publish'"
     })
@@ -99,7 +100,11 @@ module.exports = function ({
     }
   }
 
-  if (language === 'typescript') {
+  if (lerna) {
+    pkg.prefixPackage = `@${name}/`
+  }
+
+  if (language === 'typescript' && !lerna) {
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
     pkg.scripts.dev = 'TSC_OPTIONS="--watch" npm run build'
     pkg.scripts['build:es'] = 'tsc $TSC_OPTIONS --outDir es --module es6'
@@ -107,7 +112,7 @@ module.exports = function ({
     pkg.scripts['build:tds'] = 'tsc $TSC_OPTIONS --emitDeclarationOnly -d'
     pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
-  } else if (babel) {
+  } else if (babel && !lerna) {
     // if (test) {
     //   pkg.scripts['test-ci'] = 'npm run clean && npm test'
     // }
@@ -126,9 +131,11 @@ module.exports = function ({
   }
 
   if (changelog) {
-    appendCmd('scripts.version', 'npm run changelog')
+    if (!lerna) {
+      appendCmd('scripts.version', 'npm run changelog')
+      pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
+    }
     pkg.husky.hooks['commit-msg'] = 'commitlint -e $HUSKY_GIT_PARAMS'
-    pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
     pkg.commitlint = {
       extends: ['@commitlint/config-conventional']
     }

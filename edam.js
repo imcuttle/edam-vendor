@@ -95,6 +95,7 @@ module.exports = {
         if (lerna) {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
+          pkgs.push('edam-cli')
         }
         if (babel) {
           pkgs = pkgs.concat([
@@ -138,7 +139,9 @@ module.exports = {
           pkgs.push('documentation')
         }
         if (changelog) {
-          pkgs.push('conventional-changelog-cli')
+          if (!lerna) {
+            pkgs.push('conventional-changelog-cli')
+          }
           pkgs.push('@commitlint/cli')
           pkgs.push('@commitlint/config-conventional')
         }
@@ -187,7 +190,10 @@ module.exports = {
       ignores.push('src/index.d.ts')
     }
     if (!lerna) {
-      ignores.push('lerna.json.js')
+      ignores.push('lerna.json.js', 'packages/**', 'scripts/**')
+    }
+    else {
+      ignores.push('src/**', '__tests__/**')
     }
     return ignores
   },
