@@ -5,7 +5,8 @@
     "sourceMap": false,
     "declaration": false,
     "moduleResolution": "node",
-    "outDir": "types"
+    "outDir": "types",
+    "skipLibCheck": true
   },
   "include": ["./src"],
   "exclude": [
