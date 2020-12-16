@@ -1,5 +1,6 @@
 const co = require('co')
 const nps = require('path')
+const fsExtra = require('fs-extra')
 const execa = require('execa')
 const prettierLoader = require('edam-prettier-loader')
 
@@ -77,6 +78,24 @@ module.exports = {
   copy: {},
   hooks: {
     post: [
+      co.wrap(function* (output) {
+        const {
+          _: {install},
+          test,
+          babel,
+          // rollup,
+          documentation,
+          changelog,
+          lerna,
+          testType,
+          language
+        } = yield this.variables.get()
+
+        if (lerna) {
+          yield fsExtra.copy(nps.join(__dirname, 'template/packages/__template'), nps.join(output, 'packages/__template'))
+        }
+
+      }),
       co.wrap(function* (output) {
         const {
           _: {install},
@@ -174,7 +193,7 @@ module.exports = {
     }
   },
   ignore: ({test, babel, rollup, ci, lerna, language}) => {
-    const ignores = []
+    const ignores = ['packages/__template/template/**']
     if (!test) {
       ignores.push('__tests__/**')
     }
@@ -209,11 +228,7 @@ module.exports = {
       // test: /.+?\..+?$/,
       test: '**/*.{md,json,jsx?,tsx?}',
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
-    },
-    {
-      test: 'packages/__template/template/**',
-      loader: []
-    },
+    }
     // {
     //   test: '**/*.md',
     //   loader: [
