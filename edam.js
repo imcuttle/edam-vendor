@@ -209,14 +209,11 @@ module.exports = {
       // test: /.+?\..+?$/,
       test: '**/*.{md,json,jsx?,tsx?}',
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
-    }
-    // {
-    //   test: '**/*.json',
-    //   loader: [
-    //     'hbs',
-    //     [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'json' }]
-    //   ]
-    // },
+    },
+    {
+      test: 'packages/__template/template',
+      loader: []
+    },
     // {
     //   test: '**/*.md',
     //   loader: [
