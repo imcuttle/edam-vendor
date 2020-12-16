@@ -211,7 +211,7 @@ module.exports = {
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
     },
     {
-      test: 'packages/__template/template',
+      test: 'packages/__template/template/**',
       loader: []
     },
     // {
