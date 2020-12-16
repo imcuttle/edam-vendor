@@ -58,6 +58,18 @@ module.exports = function ({
       bootstrap: 'npx lerna bootstrap',
       release: "npx lerna publish --conventional-commits -m 'chore(release): publish'"
     })
+    pkg.edam = {
+      source: 'pkg',
+      alias: {
+        pkg: {
+          url: './packages/__template',
+          type: 'file',
+          config: {
+            output: './packages/'
+          }
+        }
+      }
+    }
   }
 
   if (!test) {
@@ -101,7 +113,7 @@ module.exports = function ({
   }
 
   if (lerna) {
-    pkg.prefixPackage = `@${name}/`
+    pkg.packagePrefix = `@${name}/`
   }
 
   if (language === 'typescript' && !lerna) {
