@@ -115,6 +115,7 @@ module.exports = {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
           pkgs.push('edam-cli')
+          pkgs.push('commander', 'concurrently', 'human-format', 'change-case')
         }
         if (babel) {
           pkgs = pkgs.concat([
@@ -171,7 +172,7 @@ module.exports = {
         yield install(pkgs, {cwd: output, dev: true})
 
         if (lerna) {
-          execa.shellSync('$(npm bin)/lerna init', {cwd: output})
+          execa.shellSync('chmod +x scripts/*', {cwd: output})
         }
       })
     ]
