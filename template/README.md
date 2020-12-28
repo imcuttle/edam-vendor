@@ -13,6 +13,9 @@
 
 > {{{description}}}
 
+{{#if lerna}}
+## Packages
+{{else}}
 ## Installation
 
 ```bash
@@ -26,6 +29,7 @@ yarn add {{{name}}}
 ```javascript
 import {{{camelCase name}}} from '{{name}}'
 ```
+{{/if}}
 
 {{#if documentation}}
 
