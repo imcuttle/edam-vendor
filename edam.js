@@ -1,5 +1,6 @@
 const co = require('co')
 const nps = require('path')
+const fsExtra = require('fs-extra')
 const execa = require('execa')
 const prettierLoader = require('edam-prettier-loader')
 
@@ -90,12 +91,31 @@ module.exports = {
           language
         } = yield this.variables.get()
 
+        if (lerna) {
+          yield fsExtra.copy(nps.join(__dirname, 'template/packages/__template'), nps.join(output, 'packages/__template'))
+        }
+
+      }),
+      co.wrap(function* (output) {
+        const {
+          _: {install},
+          test,
+          babel,
+          // rollup,
+          documentation,
+          changelog,
+          lerna,
+          testType,
+          language
+        } = yield this.variables.get()
+
         let deps = []
         let pkgs = ['prettier', 'pretty-quick', 'husky']
         if (lerna) {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
           pkgs.push('edam-cli')
+          pkgs.push('commander', 'concurrently', 'human-format', 'change-case')
         }
         if (babel) {
           pkgs = pkgs.concat([
@@ -152,7 +172,7 @@ module.exports = {
         yield install(pkgs, {cwd: output, dev: true})
 
         if (lerna) {
-          execa.shellSync('$(npm bin)/lerna init', {cwd: output})
+          execa.shellSync('chmod +x scripts/*', {cwd: output})
         }
       })
     ]
@@ -174,7 +194,7 @@ module.exports = {
     }
   },
   ignore: ({test, babel, rollup, ci, lerna, language}) => {
-    const ignores = []
+    const ignores = ['packages/__template/template/**']
     if (!test) {
       ignores.push('__tests__/**')
     }
@@ -210,13 +230,6 @@ module.exports = {
       test: '**/*.{md,json,jsx?,tsx?}',
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
     }
-    // {
-    //   test: '**/*.json',
-    //   loader: [
-    //     'hbs',
-    //     [prettierLoader, { filePath: PRETTIER_CONFIG_PATH, parser: 'json' }]
-    //   ]
-    // },
     // {
     //   test: '**/*.md',
     //   loader: [
