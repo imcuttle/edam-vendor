@@ -42,6 +42,9 @@ module.exports = function ({
   if (babel || language === 'typescript') {
     pkg.module = 'es'
   }
+  if (!babel && language !== 'typescript') {
+    delete pkg.files
+  }
 
   function appendCmd(path, cmd) {
     const old = _.get(pkg, path)
