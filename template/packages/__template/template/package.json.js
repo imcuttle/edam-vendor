@@ -36,7 +36,7 @@ module.exports = ({ packagePrefix, name, description, scriptBin, _, useTs }) => 
     delete scripts.build
     delete scripts.prepublishOnly
 
-    delete pkg.main
+    pkg.main = 'src'
     delete pkg.types
     delete pkg.module
   }
