@@ -21,7 +21,7 @@ module.exports = function ({
       test: testType === 'jest' ? 'npx jest' : 'npx ava',
       'test:watch': 'npm test -- --watch',
       preversion: 'npm test',
-      postpublish: 'git push origin $(git rev-parse --abbrev-ref HEAD)'
+      postpublish: 'git push --tag origin $(git rev-parse --abbrev-ref HEAD)'
     },
     husky: {
       hooks: {
