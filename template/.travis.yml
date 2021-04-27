@@ -33,6 +33,9 @@ before_script:
 {{#if test}}
 script:
   - npm install codecov nyc --no-save
+{{#if lerna}}
+  - npx lerna bootstrap
+{{/if}}
 {{#or rollup babel}}
   - npm run test-ci -- --coverage
 {{else}}
