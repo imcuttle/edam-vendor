@@ -110,7 +110,7 @@ module.exports = {
         } = yield this.variables.get()
 
         let deps = []
-        let pkgs = ['prettier', 'pretty-quick', 'husky']
+        let pkgs = ['prettier', 'pretty-quick', 'husky@5']
         if (lerna) {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
