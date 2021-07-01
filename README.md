@@ -6,7 +6,7 @@ This is a useful edam template about Node.js module.
 
 ```bash
 npm i -g edam-cli
-edam https://github.com/imcuttle/edam-vendor.git?checkout=nodejs-module
+edam imcuttle/edam-vendor?checkout=nodejs-module -o pkg-name
 ```
 
 ## Feature

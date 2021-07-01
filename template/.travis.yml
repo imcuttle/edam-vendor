@@ -21,18 +21,19 @@ jobs:
 #        skip_cleanup: true
 #        github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
 #        local_dir: _site/public
-    - stage: Unit testing
-      before_script: npm install codecov --no-save
+    - stage: test
+      before_script:
+        - npm install codecov --no-save
+        - npm run bootstrap
       script: npm test -- --coverage
       after_script: codecov --token=$CODECOV_TOKEN
 {{else}}
-{{#if lerna}}
-before_script:
-  - npm run bootstrap
-{{/if}}
 {{#if test}}
 script:
   - npm install codecov nyc --no-save
+{{#if lerna}}
+  - npx lerna bootstrap
+{{/if}}
 {{#or rollup babel}}
   - npm run test-ci -- --coverage
 {{else}}
