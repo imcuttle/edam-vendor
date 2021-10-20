@@ -5,5 +5,4 @@ module.exports = {
   singleQuote: true, // Use single quotes instead of double quotes.
   trailingComma: 'none',
   semi: false,
-  jsxBracketSameLine: false
 }
