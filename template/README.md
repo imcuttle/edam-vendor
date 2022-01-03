@@ -1,7 +1,7 @@
 # {{{name}}}
 
-[![Build status](https://img.shields.io/travis/{{{_.git.name}}}/{{{name}}}/master.svg?style=flat-square)](https://travis-ci.com/{{{_.git.name}}}/{{{name}}})
-[![Test coverage](https://img.shields.io/codecov/c/github/{{{_.git.name}}}/{{{name}}}.svg?style=flat-square)](https://codecov.io/github/{{{_.git.name}}}/{{{name}}}?branch=master)
+[![Build status](https://img.shields.io/github/workflow/status/{{{_.git.name}}}/{{{name}}}/Test/master?style=flat-square)](https://github.com/{{{_.git.name}}}/{{{name}}}/actions)
+[![Test coverage](https://img.shields.io/codecov/c/github/{{{_.git.name}}}/{{{name}}}/master.svg?style=flat-square)](https://codecov.io/github/{{{_.git.name}}}/{{{name}}}?branch=master)
 {{#if lerna}}
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/)
 {{else}}

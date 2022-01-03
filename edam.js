@@ -65,7 +65,7 @@ module.exports = {
       name: 'ci',
       type: 'confirm',
       when: ({test}) => test,
-      message: 'Do you want to use ci (travis)?',
+      message: 'Do you want to use ci (github workflow)?',
       default: true
     },
     {
@@ -199,7 +199,7 @@ module.exports = {
       ignores.push('__tests__/**')
     }
     if (!ci) {
-      ignores.push('.travis.yml')
+      ignores.push('.github/workflows/test.yml')
     }
     if (!babel && !rollup) {
       ignores.push('babelrc.js')
