@@ -170,8 +170,10 @@ module.exports = {
           yield execa.shell(`pnpm add ${deps.join(' ')} -W`, {stdio: 'inherit', cwd: output});
           // yield install(deps, {cwd: output, dev: false})
         }
-        yield execa.shell(`pnpm add ${pkgs.join(' ')} -D -W`, {stdio: 'inherit', cwd: output});
-        // yield install(pkgs, {cwd: output, dev: true})
+        if (pkgs.length) {
+          yield execa.shell(`pnpm add ${pkgs.join(' ')} -D -W`, {stdio: 'inherit', cwd: output});
+          // yield install(pkgs, {cwd: output, dev: true})
+        }
 
         if (monorepo) {
           execa.shellSync('chmod +x scripts/*', {cwd: output})
