@@ -96,11 +96,6 @@ module.exports = {
           testType,
           language
         } = yield this.variables.get()
-
-        if (monorepo) {
-          yield fsExtra.copy(nps.join(__dirname, 'template/packages/__template'), nps.join(output, 'packages/__template'))
-        }
-
       }),
       co.wrap(function* (output) {
         const {
@@ -187,6 +182,7 @@ module.exports = {
       })
     ]
   },
+
   move: ({test, babel, ci, language}) => {
     if (language === 'typescript') {
       return {
@@ -204,7 +200,7 @@ module.exports = {
     }
   },
   ignore: ({test, babel, rollup, ci, monorepo, language}) => {
-    const ignores = ['packages/__template/template/**']
+    const ignores = []
     if (!test) {
       ignores.push('__tests__/**')
     }
@@ -239,6 +235,18 @@ module.exports = {
       // test: /.+?\..+?$/,
       test: '**/*.{md,json,jsx?,tsx?}',
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
+    },
+    {
+      test: (filename) => {
+        return !filename.includes("__template") && !filename.includes("workflows/test.yml");
+      },
+      mimeTest: "text/*",
+      loader: ["hbs"],
+    },
+    {
+      test: '*',
+      mimeTest: '*',
+      loader: []
     }
     // {
     //   test: '**/*.md',
