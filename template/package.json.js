@@ -3,7 +3,7 @@
 module.exports = function ({
   _,
   test,
-  lerna,
+                             monorepo,
   changelog,
   documentation,
   description,
@@ -25,7 +25,7 @@ module.exports = function ({
     },
     husky: {
       hooks: {
-        ['pre-commit']: lerna ? 'npx lerna toc && git add README.md && pretty-quick --staged' : 'pretty-quick --staged'
+        ['pre-commit']: monorepo ? 'npx lerna toc && git add README.md && pretty-quick --staged' : 'pretty-quick --staged'
       }
     },
     sideEffects: false,
@@ -56,11 +56,10 @@ module.exports = function ({
     _.set(pkg, path, newCmd)
   }
 
-  if (lerna) {
+  if (monorepo) {
     Object.assign(pkg.scripts, {
       new: 'npx edam',
-      bootstrap: 'npx lerna bootstrap',
-      release: "npx lerna publish --conventional-commits -m 'chore(release): publish'"
+      release: "npx lerna publish"
     })
     pkg.edam = {
       source: 'pkg',
@@ -116,11 +115,11 @@ module.exports = function ({
     }
   }
 
-  if (lerna) {
+  if (monorepo) {
     pkg.packagePrefix = `@${name}/`
   }
 
-  if (language === 'typescript' && !lerna) {
+  if (language === 'typescript' && !monorepo) {
     pkg.scripts.build = 'npm run clean && run-p --print-label "build:**"'
     pkg.scripts.dev = 'TSC_OPTIONS="--watch" npm run build'
     pkg.scripts['build:es'] = 'tsc $TSC_OPTIONS --outDir es --module es6 --sourceMap false'
@@ -128,7 +127,7 @@ module.exports = function ({
     pkg.scripts['build:tds'] = 'tsc $TSC_OPTIONS --emitDeclarationOnly -d'
     pkg.scripts.clean = 'rimraf types es lib'
     pkg.scripts.prepare = 'npm run build'
-  } else if (babel && !lerna) {
+  } else if (babel && !monorepo) {
     // if (test) {
     //   pkg.scripts['test-ci'] = 'npm run clean && npm test'
     // }
@@ -147,7 +146,7 @@ module.exports = function ({
   }
 
   if (changelog) {
-    if (!lerna) {
+    if (!monorepo) {
       appendCmd('scripts.version', 'npm run changelog')
       pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
     }
