@@ -6,6 +6,12 @@ const prettierLoader = require('edam-prettier-loader')
 
 const PRETTIER_CONFIG_PATH = nps.join(__dirname, 'template/.prettierrc.js')
 
+try {
+  execa.shellSync('command -v pnpm >/dev/null 2>&1')
+} catch (e) {
+  throw new Error('Run `npm i pnpm -g` firstly')
+}
+
 module.exports = {
   // root: './template' // by default
   prompts: [
