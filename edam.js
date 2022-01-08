@@ -116,7 +116,7 @@ module.exports = {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
           pkgs.push('edam-cli')
-          pkgs.push('commander', 'concurrently', 'human-format', 'change-case')
+          pkgs.push('pkgxo', 'commander', 'concurrently', 'human-format', 'change-case')
         }
         if (babel) {
           pkgs = pkgs.concat([
