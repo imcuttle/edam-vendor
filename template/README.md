@@ -2,7 +2,7 @@
 
 [![Build status](https://img.shields.io/github/workflow/status/{{{_.git.name}}}/{{{name}}}/Test/master?style=flat-square)](https://github.com/{{{_.git.name}}}/{{{name}}}/actions)
 [![Test coverage](https://img.shields.io/codecov/c/github/{{{_.git.name}}}/{{{name}}}/master.svg?style=flat-square)](https://codecov.io/github/{{{_.git.name}}}/{{{name}}}?branch=master)
-{{#if lerna}}
+{{#if monorepo}}
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/)
 {{else}}
 [![NPM version](https://img.shields.io/npm/v/{{{name}}}.svg?style=flat-square)](https://www.npmjs.com/package/{{{name}}})
@@ -13,15 +13,13 @@
 
 > {{{description}}}
 
-{{#if lerna}}
+{{#if monorepo}}
 ## Packages
 {{else}}
 ## Installation
 
 ```bash
-npm install {{{name}}}
-# or use yarn
-yarn add {{{name}}}
+pnpm add {{{name}}}
 ```
 
 ## Usage

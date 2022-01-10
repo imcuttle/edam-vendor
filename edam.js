@@ -6,6 +6,12 @@ const prettierLoader = require('edam-prettier-loader')
 
 const PRETTIER_CONFIG_PATH = nps.join(__dirname, 'template/.prettierrc.js')
 
+try {
+  execa.shellSync('command -v pnpm >/dev/null 2>&1')
+} catch (e) {
+  throw new Error('Run `npm i pnpm -g` firstly')
+}
+
 module.exports = {
   // root: './template' // by default
   prompts: [
@@ -69,9 +75,9 @@ module.exports = {
       default: true
     },
     {
-      name: 'lerna',
+      name: 'monorepo',
       type: 'confirm',
-      message: 'Do you want to use lerna (multi-packages)?',
+      message: 'Do you want to use lerna & pnpm (multi-packages)?',
       default: false
     }
   ],
@@ -86,15 +92,10 @@ module.exports = {
           // rollup,
           documentation,
           changelog,
-          lerna,
+          monorepo,
           testType,
           language
         } = yield this.variables.get()
-
-        if (lerna) {
-          yield fsExtra.copy(nps.join(__dirname, 'template/packages/__template'), nps.join(output, 'packages/__template'))
-        }
-
       }),
       co.wrap(function* (output) {
         const {
@@ -104,18 +105,18 @@ module.exports = {
           // rollup,
           documentation,
           changelog,
-          lerna,
+          monorepo,
           testType,
           language
         } = yield this.variables.get()
 
         let deps = []
         let pkgs = ['prettier', 'pretty-quick', 'husky@4']
-        if (lerna) {
+        if (monorepo) {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
           pkgs.push('edam-cli')
-          pkgs.push('commander', 'concurrently', 'human-format', 'change-case')
+          pkgs.push('pkgxo', 'commander', 'concurrently', 'human-format', 'change-case')
         }
         if (babel) {
           pkgs = pkgs.concat([
@@ -159,7 +160,7 @@ module.exports = {
           pkgs.push('documentation')
         }
         if (changelog) {
-          if (!lerna) {
+          if (!monorepo) {
             pkgs.push('conventional-changelog-cli')
           }
           pkgs.push('@commitlint/cli')
@@ -167,16 +168,21 @@ module.exports = {
         }
 
         if (deps.length) {
-          yield install(deps, {cwd: output, dev: false})
+          yield execa.shell(`pnpm add ${deps.join(' ')} -W`, {stdio: 'inherit', cwd: output});
+          // yield install(deps, {cwd: output, dev: false})
         }
-        yield install(pkgs, {cwd: output, dev: true})
+        if (pkgs.length) {
+          yield execa.shell(`pnpm add ${pkgs.join(' ')} -D -W`, {stdio: 'inherit', cwd: output});
+          // yield install(pkgs, {cwd: output, dev: true})
+        }
 
-        if (lerna) {
+        if (monorepo) {
           execa.shellSync('chmod +x scripts/*', {cwd: output})
         }
       })
     ]
   },
+
   move: ({test, babel, ci, language}) => {
     if (language === 'typescript') {
       return {
@@ -193,8 +199,8 @@ module.exports = {
       'package.json.js': 'package.json',
     }
   },
-  ignore: ({test, babel, rollup, ci, lerna, language}) => {
-    const ignores = ['packages/__template/template/**']
+  ignore: ({test, babel, rollup, ci, monorepo, language}) => {
+    const ignores = []
     if (!test) {
       ignores.push('__tests__/**')
     }
@@ -209,8 +215,8 @@ module.exports = {
     } else {
       ignores.push('src/index.d.ts')
     }
-    if (!lerna) {
-      ignores.push('lerna.json.js', 'packages/**', 'scripts/**')
+    if (!monorepo) {
+      ignores.push('pnpm-workspace.yaml', 'lerna.json.js', 'packages/**', 'scripts/**')
     }
     else {
       ignores.push('src/**', '__tests__/**')
@@ -229,6 +235,18 @@ module.exports = {
       // test: /.+?\..+?$/,
       test: '**/*.{md,json,jsx?,tsx?}',
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
+    },
+    {
+      test: (filename) => {
+        return !filename.includes("__template") && !filename.includes("workflows/test.yml");
+      },
+      mimeTest: "text/*",
+      loader: ["hbs"],
+    },
+    {
+      test: '*',
+      mimeTest: '*',
+      loader: []
     }
     // {
     //   test: '**/*.md',

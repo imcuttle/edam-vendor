@@ -10,9 +10,7 @@
 ## Installation
 
 ```bash
-npm install {{{packagePrefix}}}{{name}}
-# or use yarn
-yarn add {{{packagePrefix}}}{{name}}
+pnpm install {{{packagePrefix}}}{{name}}
 ```
 
 ## Usage
