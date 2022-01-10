@@ -15,13 +15,14 @@ module.exports = ({ packagePrefix, name, description, scriptBin, _, useTs }) => 
     name: `${packagePrefix}${name}`,
     version: '0.0.0',
     publishConfig: {
-      access: 'public'
+      access: 'public',
+      main: 'lib',
+      types: 'types',
+      module: 'es',
     },
     author: `${_.git.name} <${_.git.email}>`,
     description,
-    main: 'lib',
-    types: 'types',
-    module: 'es',
+    main: 'src',
     files: useTs ? ['lib', 'es', 'types'] : ['src'],
     scripts,
     dependencies: {},
