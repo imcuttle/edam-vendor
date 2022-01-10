@@ -60,6 +60,7 @@ module.exports = function ({
     Object.assign(pkg.scripts, {
       new: 'npx edam',
       bootstrap: 'npx lerna bootstrap',
+      postinstall: 'npm run bootstrap',
       release: "npx lerna publish --conventional-commits -m 'chore(release): publish'"
     })
     pkg.edam = {
