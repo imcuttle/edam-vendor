@@ -1,3 +1,4 @@
 __templates/
 __template/
 __tests__/fixture/
+pnpm-lock.yaml
