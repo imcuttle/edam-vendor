@@ -18,6 +18,7 @@ module.exports = function ({
     description: description,
     author: `${_.git.name} <${_.git.email}>`,
     scripts: {
+      preinstall: 'npx only-allow pnpm',
       test: testType === 'jest' ? 'npx jest' : 'npx ava',
       'test:watch': 'npm test -- --watch',
       preversion: 'npm test',
