@@ -1,6 +1,6 @@
 # {{{name}}}
 
-[![Build status](https://img.shields.io/github/workflow/status/{{{_.git.name}}}/{{{name}}}/Test/master?style=flat-square)](https://github.com/{{{_.git.name}}}/{{{name}}}/actions)
+[![Build status](https://img.shields.io/github/workflow/status/{{{_.git.name}}}/{{{name}}}/CI/master?style=flat-square)](https://github.com/{{{_.git.name}}}/{{{name}}}/actions)
 [![Test coverage](https://img.shields.io/codecov/c/github/{{{_.git.name}}}/{{{name}}}/master.svg?style=flat-square)](https://codecov.io/github/{{{_.git.name}}}/{{{name}}}?branch=master)
 {{#if monorepo}}
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg?style=flat-square)](https://lernajs.io/)
