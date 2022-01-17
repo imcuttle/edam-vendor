@@ -238,7 +238,7 @@ module.exports = {
     },
     {
       test: (filename) => {
-        return !filename.includes("__template") && !filename.includes("workflows/test.yml");
+        return !filename.includes("__template") && !filename.includes(".github/workflows/ci.yml");
       },
       mimeTest: "text/*",
       loader: ["hbs"],
