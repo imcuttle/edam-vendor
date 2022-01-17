@@ -12,6 +12,8 @@ try {
   throw new Error('Run `npm i pnpm -g` firstly')
 }
 
+const shouldTrans = filename => !filename.includes("__template") && !filename.includes(".github/workflows/ci.yml")
+
 module.exports = {
   // root: './template' // by default
   prompts: [
@@ -233,13 +235,13 @@ module.exports = {
   mappers: [
     {
       // test: /.+?\..+?$/,
-      test: '**/*.{md,json,jsx?,tsx?}',
+      test: (filename) => {
+        return shouldTrans(filename) && /\.(mdx?|jsx?|tsx?|json)$/i.test(filename)
+      },
       loader: ['hbs', [prettierLoader, {filePath: PRETTIER_CONFIG_PATH}]]
     },
     {
-      test: (filename) => {
-        return !filename.includes("__template") && !filename.includes(".github/workflows/ci.yml");
-      },
+      test: shouldTrans,
       mimeTest: "text/*",
       loader: ["hbs"],
     },
