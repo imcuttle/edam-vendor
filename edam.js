@@ -117,6 +117,7 @@ module.exports = {
         if (monorepo) {
           pkgs.push('lerna-cli')
           pkgs.push('lerna-command-toc')
+          pkgs.push('conventional-changelog-conventionalcommits')
           pkgs.push('edam-cli')
           pkgs.push('pkgxo', 'commander', 'concurrently', 'human-format', 'change-case')
         }

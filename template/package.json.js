@@ -149,7 +149,8 @@ module.exports = function ({
   if (changelog) {
     if (!monorepo) {
       appendCmd('scripts.version', 'npm run changelog')
-      pkg.scripts.changelog = 'conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
+      // conventional-changelog-conventionalcommits
+      pkg.scripts.changelog = 'conventional-changelog -p conventionalcommits -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md'
     }
     pkg.husky.hooks['commit-msg'] = 'commitlint -e $HUSKY_GIT_PARAMS'
     pkg.commitlint = {

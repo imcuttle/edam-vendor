@@ -9,6 +9,9 @@ module.exports = ({ test, babel, language, documentation }) => {
     ],
     command: {
       publish: {
+        "changelogPreset": {
+          "name": "conventional-changelog-conventionalcommits"
+        },
         conventionalCommits: true,
         message: 'chore(release): publish'
       },
