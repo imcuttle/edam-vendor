@@ -119,7 +119,7 @@ module.exports = {
           pkgs.push('lerna-command-toc')
           pkgs.push('conventional-changelog-conventionalcommits')
           pkgs.push('edam-cli')
-          pkgs.push('pkgxo', 'commander', 'concurrently', 'human-format', 'change-case')
+          pkgs.push('pkgxo', 'commander', 'concurrently', 'human-format', 'change-case@4')
         }
         if (babel) {
           pkgs = pkgs.concat([
