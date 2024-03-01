@@ -171,11 +171,11 @@ module.exports = {
         }
 
         if (deps.length) {
-          yield execa.shell(`pnpm add ${deps.join(' ')} -W`, {stdio: 'inherit', cwd: output});
+          yield execa.shell(`pnpm add ${deps.join(' ')} -w`, {stdio: 'inherit', cwd: output});
           // yield install(deps, {cwd: output, dev: false})
         }
         if (pkgs.length) {
-          yield execa.shell(`pnpm add ${pkgs.join(' ')} -D -W`, {stdio: 'inherit', cwd: output});
+          yield execa.shell(`pnpm add ${pkgs.join(' ')} -D -w`, {stdio: 'inherit', cwd: output});
           // yield install(pkgs, {cwd: output, dev: true})
         }
 
