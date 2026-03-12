@@ -49,6 +49,17 @@ module.exports = (edam) => {
       return {
         move,
         ignore: [!useTs && 'tsconfig.json.hbs'].filter(Boolean),
+        mappers: [
+          {
+            test: ['**/!__template/**', '**/!__templates/**'],
+            mimeTest: 'text/*',
+            loader: ['hbs']
+          },
+          {
+            test: '**/*.json.js',
+            loader: ['module?indent=2']
+          },
+        ],
         variables: {
           packagePrefix,
           scriptBin: nps.relative(output, scriptsPath),
