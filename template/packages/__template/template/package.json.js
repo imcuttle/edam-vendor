@@ -1,4 +1,3 @@
-// @loader module?indent=2
 
 module.exports = ({ packagePrefix, name, description, scriptBin, _, useTs }) => {
   const scripts = {
